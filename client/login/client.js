@@ -21,7 +21,7 @@ const fieldCheck = () =>
         return false;
     }
 
-    if(currentWindow === "signUp")
+    if(currentWindow === "signup")
     {
         //Check if the fields are empty
         if($("#pass2").val() == '')
@@ -39,6 +39,7 @@ const fieldCheck = () =>
     }
 
     let curForm = "#" + currentWindow + "Form";
+    console.log(curForm);
 
     //Send the AJAX call with the login form's data
     sendAjax('POST', $(curForm).attr("action"), $(curForm).serialize(), redirect);
@@ -124,7 +125,7 @@ const createWindow = (csrf) =>
             break;
         }
 
-        case "signUp":
+        case "signup":
         {
             ReactDOM.render(
                 <SignupWindow csrf={csrf} />,
@@ -163,7 +164,7 @@ const setup = (csrf) =>
 {
     //Add events to the buttons
     document.querySelector("#loginButton").addEventListener("click", (e) => {setListener(e, csrf, "login");});
-    document.querySelector("#signUpButton").addEventListener("click", (e) => {setListener(e, csrf, "signUp");});
+    document.querySelector("#signUpButton").addEventListener("click", (e) => {setListener(e, csrf, "signup");});
     document.querySelector("#welcomeButton").addEventListener("click", (e) => {setListener(e, csrf, "welcome");});
 
     //Set the default screen
