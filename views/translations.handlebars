@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Translations</title>
+  <script crossorigin src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script crossorigin src="https://unpkg.com/prop-types/prop-types.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+</head>
+<body>
+
+  <nav class = "siteLinks">
+    <div class="navlink"><a id="gameButton" href="/game">Placeholder for Game</a></div>
+    <div class="navlink"><a id="kanjiButton" href="/kanji">Placeholder for Kanji</a></div>
+    <div class="navlink"><a id="logoutButton"href="/logout">Log out</a></div>
+  </nav>
+
+  <nav class = "appLinks">
+    <div class="navlink"><a id="dateButton" href="/getDate">Date</a></div>
+    <div class="navlink"><a id="timeButton" href="/getTime">WiP</a></div>
+    <div class="navlink"><a id="numberButton" href="/getNumber">WiP</a></div>
+    <div class="navlink"><a id="textButton" href="/getText">Text</a></div>
+  </nav>
+
+  <section id="newTranslation"></section>
+
+  <section id="translations"></section>
+
+  <script src="/assets/translatorsBundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+    "numbers":
+    {
+        "numbers":
+        [
+            {"num":"0","kanji":"零","reading":"れい","reading2":"ゼロ","english":"rei","english2":"zero","name":"zero"},
+            {"num":"1","kanji":"一","reading":"いち","english":"ichi","name":"one"},
+            {"num":"2","kanji":"二","reading":"に","english":"ni","name":"two"},
+            {"num":"3","kanji":"三","reading":"さん","english":"san","name":"three"},
+            {"num":"4","kanji":"四","reading":"よん","reading2":"し","english":"yon","english2":"shi","name":"four"},
+            {"num":"5","kanji":"五","reading":"ご","english":"go","name":"five"},
+            {"num":"6","kanji":"六","reading":"ろく","english":"roku","name":"six"},
+            {"num":"7","kanji":"七","reading":"なな","reading2":"しち","english":"nana","english2":"shichi","name":"seven"},
+            {"num":"8","kanji":"八","reading":"はち","english":"hachi","name":"eight"},
+            {"num":"9","kanji":"九","reading":"きゅう","reading2":"く","english":"kyuu","english2":"ku","name":"nine"}
+        ],
+        "powers":
+        [
+            {"num":"10","kanji":"十","reading":"じゅう","english":"juu","name":"ten"},
+            {"num":"100","kanji":"百","reading":"ひゃく","english":"hyaku","name":"hundred"},
+            {"num":"1000","kanji":"千","reading":"せん","english":"sen","name":"thousand"},
+            {"num":"10000","kanji":"万","reading":"まん","english":"man","name":"ten-thousand"},
+            {"num":"100,000,000","kanji":"億","reading":"おく","english":"oku","name":"hundred-million"}
+        ],
+        "time":
+        {
+            "AM": "午前",
+            "PM" : "午後",
+            "hour" : "時",
+            "min": "分"
+        }
+    }
+}

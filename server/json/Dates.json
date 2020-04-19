@@ -1,0 +1,74 @@
+{  
+"dates":
+{
+    "months":
+    [
+        {"kanji":"一月","reading":"いちがつ","english":"ichu-gatsu","month":"January"},
+        {"kanji":"二月","reading":"にがつ","english":"ni-gatsu","month":"February"},
+        {"kanji":"三月","reading":"さんがつ","english":"san-gatsu","month":"March"},
+        {"kanji":"四月","reading":"しがつ","english":"shi-gatsu","month":"April"},
+        {"kanji":"五月","reading":"ごがつ","english":"go-gatsu","month":"May"},
+        {"kanji":"六月","reading":"ろくがつ","english":"roku-gatsu","month":"June"},
+        {"kanji":"七月","reading":"しちがつ","english":"shichi-gatsu","month":"July"},
+        {"kanji":"八月","reading":"はちがつ","english":"hachi-gatsu","month":"August"},
+        {"kanji":"九月","reading":"くがつ","english":"ku-gatsu","month":"September"},
+        {"kanji":"十月","reading":"じゅがつ","english":"juu-gatsu","month":"October"},
+        {"kanji":"十一月","reading":"じゅいちがつ","english":"juuichu-gatsu","month":"November"},
+        {"kanji":"十二月","reading":"じゅにがつ","english":"juuni-gatsu","month":"December"}
+    ],
+
+    "days":
+    [
+        {"kanji":"一日","reading":"ついたち","english":"tsuitachi","date":"first"},
+        {"kanji":"二日","reading":"ふつか","english":"futsuka","date":"second"},
+        {"kanji":"三日","reading":"みっか","english":"mikka","date":"third"},
+        {"kanji":"四日","reading":"よっか","english":"yokka","date":"fourth"},
+        {"kanji":"五日","reading":"いつか","english":"itsuka","date":"fifth"},
+        {"kanji":"六日","reading":"むいか","english":"muika","date":"sixth"},
+        {"kanji":"七日","reading":"なのか","english":"nanoka","date":"seventh"},
+        {"kanji":"八日","reading":"ようか","english":"youka","date":"eighth"},
+        {"kanji":"九日","reading":"ここのか","english":"kokonoka","date":"ninth"},
+        {"kanji":"十日","reading":"とおか","english":"tooka","date":"tenth"},
+        {"kanji":"十一日","reading":"じゅいちにち","english":"juuichi-nichi","date":"eleventh"},
+        {"kanji":"十二日","reading":"じゅににち","english":"juuni-nichi","date":"twelfth"},
+        {"kanji":"十三日","reading":"じゅさんにち","english":"juusan-nichi","date":"thirteenth"},
+        {"kanji":"十四日","reading":"じゅよっか","english":"juuyokka","date":"fourteenth"},
+        {"kanji":"十五日","reading":"じゅごにち","english":"juugo-nichi","date":"fifthteenth"},
+        {"kanji":"十六日","reading":"じゅろくにち","english":"juuroku-nichi","date":"sixteenth"},
+        {"kanji":"十七日","reading":"じゅしちにち","english":"juushichi-nichi","date":"seventeenth"},
+        {"kanji":"十八日","reading":"じゅはちにち","english":"juuhachi-nichi","date":"eighteenth"},
+        {"kanji":"十九日","reading":"じゅくにち","english":"juuku-nichi","date":"nineteenth"},
+        {"kanji":"二十日","reading":"はつか","english":"hatsuka","date":"twentieth"},
+        {"kanji":"二十一日","reading":"にじゅいちにち","english":"nijuuichi-nichi","date":"twenty-first"},
+        {"kanji":"二十二日","reading":"にじゅににち","english":"nijuuni-nichi","date":"twenty-second"},
+        {"kanji":"二十三日","reading":"にじゅさんにち","english":"nijuusan-nichi","date":"twenty-third"},
+        {"kanji":"二十四日","reading":"にじゅよっか","english":"nijuuyokka","date":"twenty-fourth"},
+        {"kanji":"二十五日","reading":"にじゅごにち","english":"nijuugo-nichi","date":"twenty-fifth"},
+        {"kanji":"二十六日","reading":"にじゅろくにち","english":"nijuuroku-nichi","date":"twenty-sixth"},
+        {"kanji":"二十七日","reading":"にじゅしちにち","english":"nijuushichi-nichi","date":"twenty-seventh"},
+        {"kanji":"二十八日","reading":"にじゅはちにち","english":"nijuuhachi-nichi","date":"twenty-eigthth"},
+        {"kanji":"二十九日","reading":"にじゅくにち","english":"nijuuku-nichi","date":"twenty-ninth"},
+        {"kanji":"三十日","reading":"さんじゅにち","english":"sanjuu-nichi","date":"thirtieth"},
+        {"kanji":"三十一日","reading":"さんじゅいちにち","english":"sanjuuichi-nichi","date":"thirty-first"}
+    ],
+
+    "weekdays":
+    [
+        {"kanji":"日曜日","reading":"にちようび","english":"nichiyoubi","day":"Sunday"},
+        {"kanji":"月曜日","reading":"げつようび","english":"getsuyoubi","day":"Monday"},
+        {"kanji":"火曜日","reading":"かようび","english":"kayoubi","day":"Tuesday"},
+        {"kanji":"水曜日","reading":"すいようび","english":"suiyoubi","day":"Wednesday"},
+        {"kanji":"木曜日","reading":"もくようび","english":"mokuyoubi","day":"Thursday"},
+        {"kanji":"金曜日","reading":"きんようび","english":"kinyoubi","day":"Friday"},
+        {"kanji":"土曜日","reading":"どようび","english":"doyoubi","day":"Saturday"}
+    ],
+
+    "seasons":
+    [
+        {"kanji":"春","reading":"はる","english":"haru","season":"Spring"},
+        {"kanji":"夏","reading":"なつ","english":"natsu","season":"Summer"},
+        {"kanji":"秋","reading":"あき","english":"aki","season":"Fall"},
+        {"kanji":"冬","reading":"ふゆ","english":"fuyu","season":"Winter"}
+    ]
+}
+}
