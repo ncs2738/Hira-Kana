@@ -3,16 +3,16 @@
     {
         "numbers":
         [
-            {"num":"0","kanji":"零","reading":"れい","reading2":"ゼロ","english":"rei","english2":"zero","name":"zero"},
-            {"num":"1","kanji":"一","reading":"いち","english":"ichi","name":"one"},
-            {"num":"2","kanji":"二","reading":"に","english":"ni","name":"two"},
-            {"num":"3","kanji":"三","reading":"さん","english":"san","name":"three"},
-            {"num":"4","kanji":"四","reading":"よん","reading2":"し","english":"yon","english2":"shi","name":"four"},
-            {"num":"5","kanji":"五","reading":"ご","english":"go","name":"five"},
-            {"num":"6","kanji":"六","reading":"ろく","english":"roku","name":"six"},
-            {"num":"7","kanji":"七","reading":"なな","reading2":"しち","english":"nana","english2":"shichi","name":"seven"},
-            {"num":"8","kanji":"八","reading":"はち","english":"hachi","name":"eight"},
-            {"num":"9","kanji":"九","reading":"きゅう","reading2":"く","english":"kyuu","english2":"ku","name":"nine"}
+            {"num":"0","kanji":"零","reading":"れい","reading2":"ゼロ","english":"rei","name":"zero"},
+            {"num":"1","kanji":"一","reading":"いち","english":"ichi","name":"one","time":"ippun"},
+            {"num":"2","kanji":"二","reading":"に","english":"ni","name":"two","time":"nifun"},
+            {"num":"3","kanji":"三","reading":"さん","english":"san","name":"three","time":"sanpun"},
+            {"num":"4","kanji":"四","reading":"よん","reading2":"よ","reading3":"し","english":"yon","english2":"yo","english3":"shi","name":"four","time":"yonpun"},
+            {"num":"5","kanji":"五","reading":"ご","english":"go","name":"five","time":"gofun"},
+            {"num":"6","kanji":"六","reading":"ろく","english":"roku","name":"six","time":"roppun"},
+            {"num":"7","kanji":"七","reading":"なな","reading2":"しち","english":"nana","english2":"shichi","name":"seven","time":"nanafun"},
+            {"num":"8","kanji":"八","reading":"はち","english":"hachi","name":"eight","time":"happun"},
+            {"num":"9","kanji":"九","reading":"きゅう","reading2":"く","english":"kyuu","english2":"ku","name":"nine","time":"kyuufun"}
         ],
         "powers":
         [
@@ -23,11 +23,24 @@
             {"num":"100,000,000","kanji":"億","reading":"おく","english":"oku","name":"hundred-million"}
         ],
         "time":
-        {
-            "AM": "午前",
-            "PM" : "午後",
-            "hour" : "時",
-            "min": "分"
-        }
+        [
+            {"kanji":"午前","reading":"ごぜん","english":"gozen","name":"AM"},
+            {"kanji":"午後","reading":"ごご","english":"gogo","name":"PM"},
+            {"kanji":"時","reading":"じ","reading2":"かん","english":"ji","english2":"kan","name":"hour"},
+            {"kanji":"分","reading":"O'clock","name":"minutes"}
+        ],
+        "minutes":
+        [
+            {"num":"0","kanji":"十","reading":"じゅっ","time":"juppun"},
+            {"num":"1","kanji":"一","reading":"いっ","english":"i","name":"one","time":"ippun"},
+            {"num":"2","kanji":"二","reading":"に","english":"ni","name":"two","time":"nifun"},
+            {"num":"3","kanji":"三","reading":"さん","english":"san","name":"three","time":"sanpun"},
+            {"num":"4","kanji":"四","reading":"よん","reading2":"よ","reading3":"し","english":"yon","english2":"yo","english3":"shi","name":"four","time":"yonpun"},
+            {"num":"5","kanji":"五","reading":"ご","english":"go","name":"five","time":"gofun"},
+            {"num":"6","kanji":"六","reading":"ろっ","english":"ro","name":"six","time":"roppun"},
+            {"num":"7","kanji":"七","reading":"なな","reading2":"しち","english":"nana","english2":"shichi","name":"seven","time":"nanafun"},
+            {"num":"8","kanji":"八","reading":"はっ","english":"ha","name":"eight","time":"happun"},
+            {"num":"9","kanji":"九","reading":"きゅう","reading2":"く","english":"kyuu","english2":"ku","name":"nine","time":"kyuufun"}
+        ]
     }
 }

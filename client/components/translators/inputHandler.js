@@ -1,57 +1,5 @@
-
-//Huge JSON object containing all of the Japanese Hirgana and Katakana
-const jsonAlphabet = '{"vowels":{"vChars":["a:","i:","u:","e:","o:"],"hiraVowels":["あ","い","う","え","お"],"kataVowels":["ア","イ","ウ","エ","オ"]},"k":{"vChars":["ka:","ki:","ku:","ke:","ko:"],"yChars":["kya:","kyu:","kyo:"],"hiraVowels":["か","き","く","け","こ"],"hiraYs":["きゃ","きゅ","きょ"],"kataVowels":["カ","キ","ク","ケ","コ"],"kataYs":["キャ","キュ","キョ"]},"g":{"vChars":["ga:","gi:","gu:","ge:","go:"],"yChars":["gya:","gyu:","gyo:"],"hiraVowels":["が","ぎ","ぐ","げ","ご"],"hiraYs":["ぎゃ","ぎゅ","ぎょ"],"kataVowels":["ガ","ギ","グ","ゲ","ゴ"],"kataYs":["ギャ","ギュ","ギョ"]},"s":{"vChars":["sa:","si, shi:","su:","se:","so:"],"yChars":["sya, sha, shya:","syu, shu, shyu:","syo, sho, shyo:"],"hiraVowels":["さ","し","す","せ","そ"],"hiraYs":["しゃ","しゅ","しょ"],"kataVowels":["サ","シ","ス","セ","ソ"],"kataYs":["シャ","シュ","ショ"]},"z":{"vChars":["za:","zi, ji:","zu:","ze:","zo:"],"yChars":["zya, ja, jya:","zyu, ju, jyu:","zyo, jo, jyo:"],"hiraVowels":["ざ","じ","ず","ぜ","ぞ"],"hiraYs":["じゃ","じゅ","じょ"],"kataVowels":["ザ","ジ","ズ","ゼ","ゾ"],"kataYs":["ジャ","ジュ","ジョ"]},"t":{"vChars":["ta:","ti, chi:","tu, tsu:","te:","to:"],"yChars":["tya, cha, chya:","tyu, chu, chyu:","tyo, cho, chyo:"],"hiraVowels":["た","ち","つ","て","と"],"hiraYs":["ちゃ","ちゅ","ちょ"],"kataVowels":["タ","チ","ツ","テ","ト"],"kataYs":["チャ","チュ","チョ"]},"d":{"vChars":["da:","di:","du:","de:","do:"],"yChars":["dya, dza, ja, jya:","dyu, dzu, ju, jyu:","dyo, dzo, jo, jyo:"],"hiraVowels":["だ","ぢ","づ","で","ど"],"hiraYs":["ぢゃ","ぢゅ","ぢょ"],"kataVowels":["ダ","ヂ","ヅ","デ","ド"],"kataYs":["ヂャ","ヂュ","ヂョ"]},"n":{"vChars":["na:","ni:","nu:","ne:","no:"],"yChars":["nya:","nyu:","nyo:"],"nChar":"n:","hiraVowels":["な","に","ぬ","ね","の"],"hiraYs":["にゃ","にゅ","にょ"],"hiraN":"ん","kataVowels":["ナ","ニ","ヌ","ネ","ノ"],"kataYs":["ニャ","ニュ","ニョ"],"kataN":"ン"},"h":{"vChars":["ha:","hi:","hu, fu:","he:","ho:"],"yChars":["hya:","hyu:","hyo:"],"hiraVowels":["は","ひ","ふ","へ","ほ"],"hiraYs":["ひゃ","ひゅ","ひょ"],"kataVowels":["ハ","ヒ","フ","ヘ","ホ"],"kataYs":["ヒャ","ヒュ","ヒョ"]},"b":{"vChars":["ba:","bi:","bu:","be:","bo:"],"yChars":["bya:","byu:","byo:"],"hiraVowels":["ば","び","ぶ","べ","ぼ"],"hiraYs":["びゃ","びゅ","びょ"],"kataVowels":["バ","ビ","ブ","ベ","ボ"],"kataYs":["ビャ","ビュ","ビョ"]},"p":{"vChars":["pa:","pi:","pu:","pe:","po:"],"yChars":["pya:","pyu:","pyo:"],"hiraVowels":["ぱ","ぴ","ぷ","ぺ","ぽ"],"hiraYs":["ぴゃ","ぴゅ","ぴょ"],"kataVowels":["パ","ピ","プ","ペ","ポ"],"kataYs":["ピャ","ピュ","ピョ"]},"m":{"vChars":["ma:","mi:","mu:","me:","mo:"],"yChars":["mya:","myu:","myo:"],"hiraVowels":["ま","み","む","め","も"],"hiraYs":["みゃ","みゅ","みょ"],"kataVowels":["マ","ミ","ム","メ","モ"],"kataYs":["ミャ","ミュ","ミョ"]},"y":{"vChars":["ya:","yu:","yo:"],"hiraYs":["や","ゆ","よ"],"kataYs":["ヤ","ユ","ヨ"]},"r":{"vChars":["ra:","ri:","ru:","re:","ro:"],"yChars":["rya:","ryu:","ryo:"],"hiraVowels":["ら","り","る","れ","ろ"],"hiraYs":["りゃ","りゅ","りょ"],"kataVowels":["ラ","リ","ル","レ","ロ"],"kataYs":["リャ","リュ","リョ"]},"w":{"vChars":["wa:","wo:"],"hiraVowels":["わ","を"],"kataVowels":["ワ","ヲ"]},"special":{"vChars":["a, A:","i, I:","u, U:","e, E:","o, O:"],"kataVowels":["ァ","ィ","ゥ","ェ","ォ"],"kataV":"ヴ","vChar":"V:"},"tsu":{"hiraTsu":"っ","kataTsu":"ッ"},"punctuation":["。","、","ー","「","」","ゝ","ゞ","ヽ","ヾ","々","〜"]}';
-const alphabet = JSON.parse(jsonAlphabet);
-
-//Dictionary used for printing vowel characters
-const vowelDictionary = 
-{
-    "a" : 0,
-    "i" : 1,
-    "u" : 2,
-    "e" : 3,
-    "o" : 4
-};
-
-//Dictionary used for printing y characters
-const yDictionary = 
-{
-    "a" : 0,
-    "u" : 1,
-    "o" : 2
-};
-
-//Dictionary used directing the special characters to the desired alphabet
-const specialDictionary = 
-{
-    "j" : "z", 
-    "c" : "t", 
-    "f" : "h", 
-    "w" : "w",   
-    "y" : "y", 
-    "l" : "r",
-    "_" : "special"
-};
-
-//Dictionary used for printing punctuation characters
-const punctuationDictionary = 
-{
-  "." : 0,
-  "," : 1,
-  "-" : 2,
-  "<" : 3, "[" : 3, "{" : 3,
-  ">" : 4, "]" : 4, "}" : 4,
-  "'" : 5,
-  '"' : 6,
-  ";" : 7,
-  ":" : 8,
-  "`" : 9,
-  "~" : 10
-};
-
-//Array used for checking if a character should be made into a tsu
-//For example, the word kka would be 'small-tsu' 'ka'
-const tsuList = ["k", "s", "t", "p"];
+let alphabet;
+let dictionaries;
 
 const inputData = 
 {
@@ -93,10 +41,10 @@ const inputHandler = (e) =>
             for(let i = 4; i >= 1; i--)
             {
                 let tmp = inputData.message.charAt(inputData.pos-i); //Finds the character last typed in the text field
-                if(alphabet[tmp] !== undefined || specialDictionary[tmp] !== undefined) //Checks to see if the character exists in either dictionary
+                if(alphabet[tmp] !== undefined || dictionaries.specialDictionary[tmp] !== undefined) //Checks to see if the character exists in either dictionary
                 {
                     //It does, so check which dictionary it's in
-                    (alphabet[tmp] !== undefined ? inputData.characterArray = tmp : inputData.characterArray = specialDictionary[tmp]);
+                    (alphabet[tmp] !== undefined ? inputData.characterArray = tmp : inputData.characterArray = dictionaries.specialDictionary[tmp]);
                     //Set the state to the current loop's number. The state-check will handle the rest now.
                     inputData.state = i;
                     break;
@@ -150,10 +98,10 @@ const stateCheck = (input) =>
 //Parameters: user keystroke input
 const firstCase = (input) =>
 {
-    if(vowelDictionary[input] !== undefined) //If the user tpyed a vowel, check to see which vowel
+    if(dictionaries.vowelDictionary[input] !== undefined) //If the user tpyed a vowel, check to see which vowel
     {
         inputData.characterArray = "vowels";
-        printCharacter(setCharacter(vowelDictionary[input]), 1);
+        printCharacter(setCharacter(dictionaries.vowelDictionary[input]), 1);
     }
     if(input == "v")
     {
@@ -170,14 +118,14 @@ const firstCase = (input) =>
         inputData.characterArray = input;        //Set the array's pointer to be to the input just entered
         inputData.state = 2;                          //and set the state to 2 so we move onto the second case
     }
-    else if(specialDictionary[input] !== undefined)
+    else if(dictionaries.specialDictionary[input] !== undefined)
     {
-        inputData.characterArray = specialDictionary[input];        //Set the array's pointer to be to the input just entered
+        inputData.characterArray = dictionaries.specialDictionary[input];        //Set the array's pointer to be to the input just entered
         inputData.state = 2;
     }
-    else if(punctuationDictionary[input] !== undefined)
+    else if(dictionaries.punctuationDictionary[input] !== undefined)
     {
-        printCharacter(alphabet["punctuation"][punctuationDictionary[input]], inputData.state);
+        printCharacter(alphabet["punctuation"][dictionaries.punctuationDictionary[input]], inputData.state);
     }
     else
     {
@@ -193,7 +141,7 @@ const secondCase = (input) =>
     let preChar = inputData.message.charAt(inputData.pos - 2).toLowerCase(); //Gets the character right before the current position
 
     //If the character is a tsu, (so for example, kk was entered)...
-    if(tsuList.includes(preChar) && preChar == input)
+    if(dictionaries.tsuList.includes(preChar) && preChar == input)
     {
         setArray("hiraTsu","kataTsu"); //Set the array to tsu
         if(inputData.arrayName == "kataTsu") input = input.toUpperCase(); //set the character after the tsu to the appropriate typing.
@@ -201,7 +149,7 @@ const secondCase = (input) =>
     }
 
     //Check the previous character behind the input
-    else if(specialDictionary[preChar] !== undefined && preChar != "l")
+    else if(dictionaries.specialDictionary[preChar] !== undefined && preChar != "l")
     {
         switch(preChar)
         {
@@ -251,10 +199,10 @@ const secondCase = (input) =>
 
             case "_":
             {
-                if(vowelDictionary[input] !== undefined) //If the user tpyed a vowel, check to see which vowel
+                if(dictionaries.vowelDictionary[input] !== undefined) //If the user tpyed a vowel, check to see which vowel
                 {
                     inputData.arrayName = "kataVowels";
-                    printCharacter(setCharacter(vowelDictionary[input]), 1);
+                    printCharacter(setCharacter(dictionaries.vowelDictionary[input]), 1);
                 }
                 else //The user entered no valid inputs; return to the first case.
                 {
@@ -266,9 +214,9 @@ const secondCase = (input) =>
         }
     }
 
-    else if(vowelDictionary[input] !== undefined) //If the user typed a vowel, check to see which vowel
+    else if(dictionaries.vowelDictionary[input] !== undefined) //If the user typed a vowel, check to see which vowel
     {
-        printCharacter(setCharacter(vowelDictionary[input]), 1);
+        printCharacter(setCharacter(dictionaries.vowelDictionary[input]), 1);
     }
 
     else if(lastChar('s') || lastChar('t') || input == "y")
@@ -359,7 +307,7 @@ const resetState = (num, input) =>
     {
         inputData.characterArray = preChar;
     }
-    else if(vowelDictionary[input] !== undefined)
+    else if(dictionaries.vowelDictionary[input] !== undefined)
     {
         inputData.characterArray = "vowels";
     }
@@ -419,10 +367,10 @@ const uCheck = (input, stateIndex) =>
 //Checks to see if the character inputted is a valid y-vowel
 const yCheck = (input, stateIndex) =>
 {
-    if(yDictionary[input] !== undefined)
+    if(dictionaries.yDictionary[input] !== undefined)
     {
         setArray("hiraYs","kataYs");
-        printCharacter(setCharacter(yDictionary[input]), stateIndex);    
+        printCharacter(setCharacter(dictionaries.yDictionary[input]), stateIndex);    
     }
     else if(input == "y" && inputData.state <= 3)
     {
@@ -445,4 +393,10 @@ const iCheck = (input, stateIndex) =>
     {
         yCheck(input, stateIndex);
     }
+}
+
+const setTextJSON = (jsonDictionary) =>
+{
+    alphabet = jsonDictionary.text;
+    dictionaries = jsonDictionary.dictionaries;
 }

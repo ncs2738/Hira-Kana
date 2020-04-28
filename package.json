@@ -9,20 +9,21 @@
   "main": "./server/app.js",
   "scripts": {
     "buildLoginBundle": "babel ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
-    "buildTranslatorsBundle": "babel ./client/translators ./client/helper --presets @babel/preset-react --out-file ./hosted/translatorsBundle.js",
-    "buildGameBundle": "babel ./client/game ./client/helper --presets @babel/preset-react --out-file ./hosted/gameBundle.js",
-    "buildKanjiBundle": "babel ./client/kanjiCatcher ./client/helper --presets @babel/preset-react --out-file ./hosted/kanjiBundle.js",
-    "build": "npm run buildLoginBundle && npm run buildTranslatorsBundle && npm run buildGameBundle && npm run buildKanjiBundle",
-    "watchLoginBundle": "babel --watch ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
-    "watchTranslatorsBundle": "babel --watch ./client/translators ./client/helper --presets @babel/preset-react --out-file ./hosted/translatorsBundle.js",
-    "watchGameBundle": "babel --watch ./client/game ./client/helper --presets @babel/preset-react --out-file ./hosted/gameBundle.js",
-    "watchKanjiBundle": "babel --watch ./client/kanjiCatcher ./client/helper --presets @babel/preset-react --out-file ./hosted/kanjiBundle.js",
+    "buildPasswordBundle": "babel ./client/updatePassword ./client/helper --presets @babel/preset-react --out-file ./hosted/passwordBundle.js",
+    "buildTranslatorsBundle": "babel ./client/translators ./client/helper ./client/components --presets @babel/preset-react --out-file ./hosted/translatorsBundle.js",
+    "buildGameBundle": "babel ./client/game ./client/helper ./client/components --presets @babel/preset-react --out-file ./hosted/gameBundle.js",
+    "buildKanjiBundle": "babel ./client/kanjiCatcher ./client/helper ./client/components --presets @babel/preset-react --out-file ./hosted/kanjiBundle.js",
+    "build": "npm run buildLoginBundle && npm run buildPasswordBundle && npm run buildTranslatorsBundle && npm run buildGameBundle && npm run buildKanjiBundle",
+    "watchLoginBundle": "babel --watch ./client/login ./client/helper ./client/components --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
+    "watchPasswordBundle": "babel --watch ./client/updatePassword ./client/helper --presets @babel/preset-react --out-file ./hosted/passwordBundle.js",
+    "watchTranslatorsBundle": "babel --watch ./client/translators ./client/helper ./client/components --presets @babel/preset-react --out-file ./hosted/translatorsBundle.js",
+    "watchGameBundle": "babel --watch ./client/game ./client/helper ./client/components --presets @babel/preset-react --out-file ./hosted/gameBundle.js",
+    "watchKanjiBundle": "babel --watch ./client/kanjiCatcher ./client/helper ./client/components --presets @babel/preset-react --out-file ./hosted/kanjiBundle.js",
     "nodemon": "nodemon --watch ./server ./server/app.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
     "test": "echo \"Tests complete\""
   },
-
   "keywords": [
     "Node",
     "MVC",
@@ -43,6 +44,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.4.1",
     "compression": "^1.7.4",
     "connect-redis": "^4.0.4",
     "cookie-parser": "^1.4.5",
@@ -52,6 +54,7 @@
     "express-session": "^1.17.0",
     "helmet": "^3.21.3",
     "mongoose": "^5.9.5",
+    "react-bootstrap": "^1.0.1",
     "redis": "^3.0.2",
     "serve-favicon": "^2.5.0",
     "underscore": "^1.9.2"

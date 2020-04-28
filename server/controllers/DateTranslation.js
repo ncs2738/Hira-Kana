@@ -2,23 +2,27 @@
 const models = require('../models');
 
 // Set up the Translation models
-const { TextTranslation } = models;
+const { DateTranslation } = models;
 
 // Used for saving a new translation
-const saveTextTranslation = (req, res) => {
+const saveDateTranslation = (req, res) => {
   // Make sure all fields are there
-  if (!req.body.translation) {
+  if (!req.body) {
     return res.status(400).json({ error: 'Please enter a translation to be saved!' });
   }
 
   // Set an object to the variables + the owner's id
   const translationData = {
+    date: req.body.date,
+    kanji: req.body.kanji,
+    reading: req.body.reading,
+    english: req.body.english,
     translation: req.body.translation,
     owner: req.session.account._id,
   };
 
   // Create a new model in the database
-  const newTranslation = new TextTranslation.TextTranslationModel(translationData);
+  const newTranslation = new DateTranslation.DateTranslationModel(translationData);
 
   // Make the promise
   const translationPromise = newTranslation.save();
@@ -42,9 +46,9 @@ const saveTextTranslation = (req, res) => {
   return translationPromise;
 };
 
-const updateTextTranslation = (req, res) => {
+const updateDateTranslation = (req, res) => {
   req.body.owner = req.session.account._id;
-  TextTranslation.TextTranslationModel.update(req.body, (err, docs) => {
+  DateTranslation.DateTranslationModel.update(req.body, (err, docs) => {
     // A error occured
     if (err) {
       console.log(err);
@@ -57,9 +61,9 @@ const updateTextTranslation = (req, res) => {
 };
 
 // used for deleting the user's translations
-const deleteTextTranslation = (req, res) => {
+const deleteDateTranslation = (req, res) => {
   // Send the translation-id, and check for errors
-  TextTranslation.TextTranslationModel.deleteTranslation(req.body.id, (err, docs) => {
+  DateTranslation.DateTranslationModel.deleteTranslation(req.body.id, (err, docs) => {
     // Failed in deleting right
     if (err) {
       console.log(err);
@@ -73,12 +77,12 @@ const deleteTextTranslation = (req, res) => {
 };
 
 // Get all of the user's translations
-const getTextTranslations = (request, response) => {
+const getDateTranslations = (request, response) => {
   const req = request;
   const res = response;
 
   // Search for the owner
-  return TextTranslation.TextTranslationModel.findByOwner(req.session.account._id, (err, docs) => {
+  return DateTranslation.DateTranslationModel.findByOwner(req.session.account._id, (err, docs) => {
     // An error occurred
     if (err) {
       console.log(err);
@@ -86,29 +90,12 @@ const getTextTranslations = (request, response) => {
     }
 
     // Return the translations
-    return res.json({ translations: docs });
-  });
-};
-
-// Load the translation page
-const translationsPage = (req, res) => {
-  // Grab the user's translations
-
-  TextTranslation.TextTranslationModel.findByOwner(req.session.account._id, (err, docs) => {
-    // A error occured
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ err: 'An error occurred. Sorry about that.' });
-    }
-
-    // The app loaded right; reload the app again, and get a new token
-    return res.render('translations', { csrfToken: req.csrfToken(), translations: docs });
+    return res.json({ dates: docs });
   });
 };
 
 // Export the functions
-module.exports.translationsPage = translationsPage;
-module.exports.getText = getTextTranslations;
-module.exports.saveText = saveTextTranslation;
-module.exports.deleteText = deleteTextTranslation;
-module.exports.updateText = updateTextTranslation;
+module.exports.getDates = getDateTranslations;
+module.exports.saveDate = saveDateTranslation;
+module.exports.deleteDate = deleteDateTranslation;
+module.exports.updateDate = updateDateTranslation;

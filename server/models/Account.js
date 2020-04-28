@@ -5,6 +5,10 @@ const mongoose = require('mongoose');
 // Lets us use promises
 mongoose.Promise = global.Promise;
 
+// mongoose.Types.ObjectID is a function
+// that converts string ID to a real mongo ID
+const convertId = mongoose.Types.ObjectId;
+
 // Security info
 let AccountModel = {};
 const iterations = 10000;
@@ -90,6 +94,46 @@ AccountSchema.statics.authenticate = (username, password, callback) => {
 
       return callback();
     });
+  });
+};
+
+// Search the database for the specific user and update their password
+AccountSchema.statics.updatePassword = (data, callback) => {
+  AccountModel.findByUsername(data.username, (err, doc) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (!doc) {
+      return callback();
+    }
+
+    // Check if their password is valid
+    return validatePassword(doc, data.password, (result) => {
+      if (result === true) {
+        return callback(null, doc);
+      }
+
+      return callback();
+    });
+  });
+
+
+  // Convert the user's ID
+  const search = {
+    _id: convertId(data.owner),
+  };
+
+  // Generate a new password hash
+  AccountModel.generateHash(data.pass, (salt, hash) => {
+    const updateData = {
+      salt,
+      password: hash,
+    };
+
+    // Search for the account by it's id, and update their password
+    return AccountModel.find(search).findOneAndUpdate(search, updateData,
+      { useFindAndModify: false }, callback);
   });
 };
 

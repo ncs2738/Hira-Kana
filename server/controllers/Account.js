@@ -109,6 +109,59 @@ const signup = (request, response) => {
   });
 };
 
+// Update Password
+// /There's a bit to it sadly, but it's fairly clean.
+const updatePassword = (request, response) => {
+  const req = request;
+  const res = response;
+
+  // cast to strings to cover up security flaws
+  req.body.curPassword = `${req.body.curPassword}`;
+  req.body.pass = `${req.body.pass}`;
+  req.body.pass2 = `${req.body.pass2}`;
+
+  // Check if the user entered a username and 2 passwords
+  if (!req.body.curPassword || !req.body.pass || !req.body.pass2) {
+    return res.status(400).json({ error: 'All fields are required, yo. Try again.' });
+  }
+
+  // Check if they aren't just entering the same password in
+  if (req.body.curPassword === req.body.pass) {
+    return res.status(400).json({ error: 'Please enter in a new password!' });
+  }
+
+  // Check if the new passwords match
+  if (req.body.pass !== req.body.pass2) {
+    return res.status(400).json({ error: 'The passwords failed to match dude. Try again.' });
+  }
+
+  // Add the current owner to the body
+  req.body.owner = req.session.account._id;
+
+  // Update the password
+  Account.AccountModel.updatePassword(req.body, (err) => {
+    // A error occured
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ err: 'An error occurred. Sorry about that.' });
+    }
+
+    // The password updated right, return successfully
+    // Finish authenticate
+    // return res.status(204).json({ message: 'Your password has been updated!' });
+    //
+    return 'success';
+  });
+
+  return res.json({ message: 'success' });
+};
+
+// Load the game page
+const passwordPage = (req, res) => {
+  // The app loaded right; reload the app again, and get a new token
+  res.render('updatePassword');
+};
+
 // Used for generating CSRF tokens
 const getToken = (request, response) => {
   const req = request;
@@ -127,3 +180,5 @@ module.exports.login = login;
 module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
+module.exports.passwordPage = passwordPage;
+module.exports.update = updatePassword;

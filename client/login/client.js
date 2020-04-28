@@ -96,17 +96,16 @@ const WelcomeWindow = (props) =>
 {
     return(
         <div className = "welcome">
-            <h1>Hello there!</h1>
-            <h1>This is my project 2 milestone 1</h1>
-            <p>I focused primarily getting all ready n' set up; I really focused on getting my update and delete functions going</p>
-            <p>I had the update calls working on the domo maker, but translating it onto this project took me hours, which is why I've sadly not much to show for this one.</p>
-            <p>I've really only have my text translator set up, and you can get the current date. I plan on adding more to the date search later.</p>
-            <p>My the functionality for my text translator is practically finished, and should be working without any issues.</p>
-            <p>If I have any errors on the app, they'll be in the console. Sorry about that.</p>
-            <p>Although I sadly don't have too much to show for this one, all of my setup's essentially done</p>
-            <p>Alot of this was me just learning how to set everything up + experimenting with React and figuring things out</p>
-            <p>My code's kinda messy but it's not the world's end, and I've got a long way to go with this.</p>
-            <p>I hope this is enough for the milestone!</p>
+            <h1>Hello there again!</h1>
+            <h1>This is my project 2 milestone 2</h1>
+            <p>I sadly got sick alot of days this week and had a ton of other classes to deal with</p>
+            <p>So once again there's not much to show for this one, and it's kind of rather disheartening</p>
+            <p>I have 3/4 of my translators' functionality completely done and I've got my password update going too.</p>
+            <p>I have essentially no CSS at all though to my site yet, so it's still looking rather rough.</p>
+            <p>I'm gonna pretty up this page alot, and get somewhere to show my actual errors for the final submission</p>
+            <p>And I'm going to try to get my game added to the site too</p>
+            <p>I don't think I'll have the time nor energy to get the kanji search added though.</p>
+            <p>It's uh... got external API calls and I don't think I'll have enough time nor energy to handle that</p>
         </div>
     );
 };

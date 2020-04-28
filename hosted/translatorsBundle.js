@@ -1,174 +1,6 @@
 "use strict";
 
-var handleDomo = function handleDomo(e) {
-  //Keep the page from refreshing
-  e.preventDefault(); //Hide our domo-friend
-
-  $("#domoMessage").animate({
-    width: 'hide'
-  }, 350); //Check if the user entered anything
-
-  if ($("#domoName").val() == '' || $("#domoAge").val() == '' || $("#domoClass").val() == '' || $("#domoLevel").val() == '') {
-    handleError("All fields are required bro.");
-    return false;
-  } //Send the AJAX call with the domo-forms form's data
-
-
-  sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function () {
-    loadDomosFromServer();
-  });
-  return false;
-};
-
-var deleteMe = function deleteMe(id) {
-  //Generate a new token
-  sendAjax('GET', '/getToken', null, function (result) {
-    //Create a object with the domo's ID and the new token
-    var domoID = {
-      id: id,
-      _csrf: result.csrfToken
-    }; //Send the AJAX call to the /delete page with the domo's data
-
-    sendAjax('POST', "/delete", domoID, function () {
-      //Refresh the page after the event
-      loadDomosFromServer();
-    });
-  });
-}; //HTML setup for the Domo-form
-
-
-var DomoForm = function DomoForm(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "domoForm",
-      name: "domoForm",
-      onSubmit: handleDomo,
-      action: "/maker",
-      method: "POST",
-      className: "domoForm"
-    }, /*#__PURE__*/React.createElement("label", {
-      htmlFor: "name"
-    }, "Name: "), /*#__PURE__*/React.createElement("input", {
-      id: "domoName",
-      type: "text",
-      name: "name",
-      placeholder: "Domo Name"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "age"
-    }, "Age: "), /*#__PURE__*/React.createElement("input", {
-      id: "domoAge",
-      type: "text",
-      name: "age",
-      placeholder: "Domo Age"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "class"
-    }, "Class: "), /*#__PURE__*/React.createElement("input", {
-      id: "domoClass",
-      type: "text",
-      name: "class",
-      placeholder: "Domo Class"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "level"
-    }, "Level: "), /*#__PURE__*/React.createElement("input", {
-      id: "domoLevel",
-      type: "text",
-      name: "level",
-      placeholder: "Domo Level"
-    }), /*#__PURE__*/React.createElement("input", {
-      type: "hidden",
-      name: "_csrf",
-      value: props.csrf
-    }), /*#__PURE__*/React.createElement("input", {
-      className: "makeDomoSubmit",
-      type: "submit",
-      value: "Make Domo"
-    }))
-  );
-}; //Load in the domo data
-
-
-var DomoList = function DomoList(props) {
-  //If there's no domos
-  if (props.domos.length === 0) {
-    //Return a empty list
-    return (/*#__PURE__*/React.createElement("div", {
-        className: "domoList"
-      }, /*#__PURE__*/React.createElement("h3", {
-        className: "emptyDomo"
-      }, "No Domos yet!"))
-    );
-  } //There are domos, so make a map of them
-
-
-  var domoNodes = props.domos.map(function (domo) {
-    //Return a new table entry for each domo
-    return (/*#__PURE__*/React.createElement("div", {
-        key: domo._id,
-        className: "domo"
-      }, /*#__PURE__*/React.createElement("img", {
-        src: "/assets/img/domoface.jpeg",
-        alt: "domo face",
-        className: "domoFace"
-      }), /*#__PURE__*/React.createElement("h3", {
-        className: "domoName"
-      }, "Name: ", domo.name), /*#__PURE__*/React.createElement("h3", {
-        className: "domoAge"
-      }, "Age: ", domo.age), /*#__PURE__*/React.createElement("h3", {
-        className: "domoClass"
-      }, "Class: ", domo["class"]), /*#__PURE__*/React.createElement("h3", {
-        className: "domoLevel"
-      }, "Level: ", domo.level), /*#__PURE__*/React.createElement("button", {
-        onClick: function onClick(e) {
-          return deleteMe(domo._id);
-        }
-      }, "Delete Domo"))
-    );
-  }); //Return the domo list
-
-  return (/*#__PURE__*/React.createElement("div", {
-      className: "domoList"
-    }, domoNodes)
-  );
-}; //Refresh the page and show all the domo data
-
-
-var loadDomosFromServer = function loadDomosFromServer() {
-  sendAjax('GET', '/getDomos', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-      domos: data.domos
-    }), document.querySelector("#domos"));
-  });
-}; //Setup the page by rendering the form and list
-
-
-var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(DomoForm, {
-    csrf: csrf
-  }), document.querySelector("#makeDomo"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-    domos: []
-  }), document.querySelector("#domos")); //Load the data into the list
-
-  loadDomosFromServer();
-}; //Get a new CSRF token
-
-
-var getToken = function getToken() {
-  sendAjax('GET', '/getToken', null, function (result) {
-    setup(result.csrfToken);
-  });
-}; //Load the page and set off the chain of events
-
-
-$(document).ready(function () {
-  getToken();
-});
-"use strict";
-
-var currentWindow = "text";
-var textbox;
-var removedElem;
-var updating = false;
-
+//Handler for saving text
 var handleTextTranslation = function handleTextTranslation(e) {
   //Keep the page from refreshing
   e.preventDefault(); //Check if the user entered anything
@@ -177,41 +9,45 @@ var handleTextTranslation = function handleTextTranslation(e) {
     console.log("Please enter in text to be translated."); //handleError("All fields are required bro.");
 
     return false;
-  } //If we're not updating a prior entry...
+  }
 
+  saveTranslation("#translationForm");
+};
 
+var handleDate = function handleDate(e) {
+  //Keep the page from refreshing
+  e.preventDefault();
+  saveTranslation("#dateForm");
+};
+
+var handleNumber = function handleNumber(e) {
+  //Keep the page from refreshing
+  e.preventDefault();
+  saveTranslation("#numberForm");
+};
+
+var saveTranslation = function saveTranslation(form) {
+  //If we're not updating a prior entry...
   if (!updating) {
     //Send the AJAX call with the translation forms form's data
-    sendAjax('POST', $("#translationForm").attr("action"), $("#translationForm").serialize(), function () {
+    sendAjax('POST', $(form).attr("action"), $(form).serialize(), function () {
       resetStates();
-      loadTranslationsFromServer();
+      loadFromServer();
     });
   } //we are updating another translation
   else {
       //Send the AJAX call with the translation forms form's data
-      sendAjax('POST', "/updateTranslation", $("#translationForm").serialize(), function () {
+      sendAjax('POST', "/update" + currentWindow, $(form).serialize(), function () {
         //We finished updating, so reset the states
         resetStates(); //Load the translations from the server
 
-        loadTranslationsFromServer(); //Refresh the form
-
-        sendAjax('GET', '/getToken', null, function (result) {
-          createWindow(result.csrfToken);
-        });
+        loadFromServer();
       });
-    }
-
-  return false;
-}; //Handler for the date
+    } //Refresh the form
 
 
-var handleDate = function handleDate(e) {
-  //Keep the page from refreshing
-  e.preventDefault(); //Send the AJAX call with the date form's data
-  //Right now it's empty, so we send null.
-
-  sendAjax('GET', $("#dateForm").attr("action"), null, function () {
-    loadDateFromServer();
+  sendAjax('GET', '/getToken', null, function (result) {
+    createWindow(result.csrfToken);
   });
   return false;
 }; //Function to delete a previously saved translation
@@ -227,31 +63,19 @@ var deleteMe = function deleteMe(id) {
       _csrf: result.csrfToken
     }; //Send the AJAX call to the /delete page with the translation's data
 
-    sendAjax('POST', "/deleteTranslation", translationID, function () {
+    sendAjax('POST', "/delete" + currentWindow, translationID, function () {
       //Refresh the page after the event
-      loadTranslationsFromServer(); //if we were updating, reset the updating state values.
+      loadFromServer(); //if we were updating, reset the updating state values.
 
       stopUpdating(resetStates.csrfToken);
     });
   });
-}; //Function to revert from the updating state back to the plain state.
-
-
-var resetStates = function resetStates() {
-  //Clear the textbox
-  textbox.value = ""; //Clear the stored value we were updating
-
-  removedElem = ""; //Reset the updating state
-
-  updating = false;
 }; //Function used for getting specifically what value we clicked on to update
 
 
 var loadData = function loadData(translation, list, id) {
   //Set the updating state to true
-  updating = true; //Trim the stored text value
-
-  textbox.value = translation.trim(); //Variable used to get the next variable we are going to update
+  updating = true; //Variable used to get the next variable we are going to update
   //This is necessary if we are swapping through the stored values
 
   var newElem; //Loop through our list
@@ -268,11 +92,17 @@ var loadData = function loadData(translation, list, id) {
 
       break;
     }
+  } //Update the forms
+
+
+  if (translation) {
+    //Trim the stored text value
+    textbox.value = translation.trim();
   } //Refresh the page's form + list
 
 
   sendAjax('GET', '/getToken', null, function (result) {
-    createWindow(result.csrfToken, list);
+    createWindow(result.csrfToken, list, removedElem[0]);
   });
 }; //The user clicked the "stop updating" button after selecting a value to update
 
@@ -282,9 +112,458 @@ var stopUpdating = function stopUpdating(token) {
   resetStates(); //Reload the window
 
   createWindow(token);
-}; //HTML setup for the Text Translation form
+}; //Function to revert from the updating state back to the plain state.
 
 
+var resetStates = function resetStates() {
+  //Clear the textbox
+  textbox.value = ""; //Clear the stored value we were updating
+
+  removedElem = ""; //Reset the updating state
+
+  updating = false;
+};
+"use strict";
+
+//HTML setup for the Date Translation form
+//This is not finished; will be updated
+var DateForm = function DateForm(props) {
+  return (/*#__PURE__*/React.createElement("form", {
+      id: "dateSearch",
+      name: "dateSearch",
+      onSubmit: getDate,
+      className: "dateSearch"
+    }, /*#__PURE__*/React.createElement("label", {
+      "for": "date"
+    }, "Enter Date:"), /*#__PURE__*/React.createElement("input", {
+      type: "date",
+      id: "dateInput",
+      name: "date"
+    }), /*#__PURE__*/React.createElement("input", {
+      className: "dateSubmit",
+      type: "submit",
+      value: "Get Date"
+    }))
+  );
+};
+/*
+        <form id="dateForm" 
+        name="dateForm"
+        onSubmit={handleDate}
+        action = "/getDate"
+        method="GET"
+        className="dateForm"
+        >
+            <input type="hidden" name="_csrf" value={props.csrf}/>
+            <input className="dateSubmit" type="submit" value="Get Date"/>
+        </form>
+*/
+//Load in the date
+
+
+var DateOutput = function DateOutput(props) {
+  //The user hasn't searched for the date
+  if (props.date.length === 0) {
+    //Return a empty list
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "translationList"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "emptyTranslationList"
+      }, "Get the date please"))
+    );
+  } //For future reference
+
+  /*
+  //There are saved translations, so make a map of them
+  const dateNodes = props.date.map(function(date)
+  {
+      //Return a new table entry for each saved translation
+      return (
+          <div key={translations._id} className="todaysDate">
+              <h3 className="dateText">{date.date}</h3>
+              <h3 className="kanjiText">{date.kanji}</h3>
+              <h3 className="readingText">{date.reading}</h3>
+              <h3 className="englishText">{date.english}</h3>
+              <h3 className="translationText">{date.translation}</h3>
+          </div>
+      );
+  });
+  */
+  //Return the date
+
+
+  if (!updating) {
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "dateOutput"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "searchedDate"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "dateText"
+      }, props.date.date), /*#__PURE__*/React.createElement("h3", {
+        className: "kanjiText"
+      }, props.date.kanji), /*#__PURE__*/React.createElement("h3", {
+        className: "readingText"
+      }, props.date.reading), /*#__PURE__*/React.createElement("h3", {
+        className: "englishText"
+      }, props.date.english), /*#__PURE__*/React.createElement("h3", {
+        className: "translationText"
+      }, props.date.translation)), /*#__PURE__*/React.createElement("form", {
+        id: "dateForm",
+        name: "dateForm",
+        onSubmit: handleDate,
+        action: "/dates",
+        method: "POST",
+        className: "dateForm"
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "date",
+        value: props.date.date
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "kanji",
+        value: props.date.kanji
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "reading",
+        value: props.date.reading
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "english",
+        value: props.date.english
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "translation",
+        value: props.date.translation
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "_csrf",
+        value: props.csrf
+      }), /*#__PURE__*/React.createElement("input", {
+        className: "dateSubmit",
+        type: "submit",
+        value: "Save Date"
+      })))
+    );
+  } else {
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "dateOutput"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "searchedDate"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "dateText"
+      }, props.date.date), /*#__PURE__*/React.createElement("h3", {
+        className: "kanjiText"
+      }, props.date.kanji), /*#__PURE__*/React.createElement("h3", {
+        className: "readingText"
+      }, props.date.reading), /*#__PURE__*/React.createElement("h3", {
+        className: "englishText"
+      }, props.date.english), /*#__PURE__*/React.createElement("h3", {
+        className: "translationText"
+      }, props.date.translation)), /*#__PURE__*/React.createElement("form", {
+        id: "dateForm",
+        name: "dateForm",
+        onSubmit: handleDate,
+        action: "/dates",
+        method: "POST",
+        className: "dateForm"
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "date",
+        value: props.date.date
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "kanji",
+        value: props.date.kanji
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "reading",
+        value: props.date.reading
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "english",
+        value: props.date.english
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "translation",
+        value: props.date.translation
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "id",
+        value: removedElem[0]._id
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "_csrf",
+        value: props.csrf
+      }), /*#__PURE__*/React.createElement("button", {
+        type: "button",
+        onClick: function onClick(e) {
+          return stopUpdating(props.csrf);
+        }
+      }, "Cancel"), /*#__PURE__*/React.createElement("input", {
+        className: "dateSubmit",
+        type: "submit",
+        value: "Update Date"
+      })))
+    );
+  }
+}; //Load in the date
+
+
+var DateList = function DateList(props) {
+  //If there are no previously saved translations
+  if (props.dates.length === 0) {
+    //Return a empty list
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "dateList"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "emptyDateList"
+      }, "There are no saved dates!"))
+    );
+  } //There are saved translations, so make a map of them
+
+
+  var dateNodes = props.dates.map(function (dates) {
+    //Return a new table entry for each saved translation
+    return (/*#__PURE__*/React.createElement("div", {
+        key: dates._id,
+        className: "date"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "translationDate"
+      }, dates.date), /*#__PURE__*/React.createElement("h3", {
+        className: "translationKanji"
+      }, dates.kanji), /*#__PURE__*/React.createElement("h3", {
+        className: "translationReading"
+      }, dates.reading), /*#__PURE__*/React.createElement("h3", {
+        className: "translationEnglish"
+      }, dates.english), /*#__PURE__*/React.createElement("h3", {
+        className: "translationText"
+      }, dates.translation), /*#__PURE__*/React.createElement("button", {
+        onClick: function onClick(e) {
+          return deleteMe(dates._id);
+        }
+      }, "Remove"), /*#__PURE__*/React.createElement("button", {
+        onClick: function onClick(e) {
+          return loadData(false, props.dates, dates._id);
+        }
+      }, "Update"))
+    );
+  }); //Return the translations list
+
+  return (/*#__PURE__*/React.createElement("div", {
+      className: "dateList"
+    }, dateNodes)
+  );
+};
+"use strict";
+
+//HTML setup for the Date Translation form
+//This is not finished; will be updated
+var NumberForm = function NumberForm(props) {
+  return (/*#__PURE__*/React.createElement("form", {
+      id: "NumberSearch",
+      name: "NumberSearch",
+      onSubmit: getNumber,
+      className: "NumberSearch"
+    }, /*#__PURE__*/React.createElement("label", {
+      "for": "number"
+    }, "Enter Number:"), /*#__PURE__*/React.createElement("input", {
+      type: "number",
+      id: "numberInput",
+      name: "number",
+      max: "99999"
+    }), /*#__PURE__*/React.createElement("input", {
+      className: "numberSubmit",
+      type: "submit",
+      value: "Get Number"
+    }))
+  );
+}; //Load in the date
+
+
+var NumberOutput = function NumberOutput(props) {
+  console.log(props); //The user hasn't searched for a number yet
+
+  if (props.number.length === 0) {
+    //Return a empty list
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "translationList"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "emptyTranslationList"
+      }, "Get the number please"))
+    );
+  } //For future reference
+
+  /*
+  //There are saved translations, so make a map of them
+  const dateNodes = props.date.map(function(date)
+  {
+      //Return a new table entry for each saved translation
+      return (
+          <div key={translations._id} className="todaysDate">
+              <h3 className="dateText">{date.date}</h3>
+              <h3 className="kanjiText">{date.kanji}</h3>
+              <h3 className="readingText">{date.reading}</h3>
+              <h3 className="englishText">{date.english}</h3>
+              <h3 className="translationText">{date.translation}</h3>
+          </div>
+      );
+  });
+  */
+  //Return the date
+
+
+  if (!updating) {
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "numberOutput"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "searchedNumber"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "numberSearched"
+      }, props.number.number), /*#__PURE__*/React.createElement("h3", {
+        className: "numberKanji"
+      }, props.number.kanji), /*#__PURE__*/React.createElement("h3", {
+        className: "numberText"
+      }, props.number.reading), /*#__PURE__*/React.createElement("h3", {
+        className: "englishText"
+      }, props.number.english)), /*#__PURE__*/React.createElement("form", {
+        id: "numberForm",
+        name: "numberForm",
+        onSubmit: handleNumber,
+        action: "/number",
+        method: "POST",
+        className: "numberForm"
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "number",
+        value: props.number.number
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "kanji",
+        value: props.number.kanji
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "reading",
+        value: props.number.reading
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "english",
+        value: props.number.english
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "_csrf",
+        value: props.csrf
+      }), /*#__PURE__*/React.createElement("input", {
+        className: "numberSubmit",
+        type: "submit",
+        value: "Save Number"
+      })))
+    );
+  } else {
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "numberOutput"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "searchedNumber"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "numberSearched"
+      }, props.number.number), /*#__PURE__*/React.createElement("h3", {
+        className: "numberKanji"
+      }, props.number.kanji), /*#__PURE__*/React.createElement("h3", {
+        className: "numberText"
+      }, props.number.reading), /*#__PURE__*/React.createElement("h3", {
+        className: "englishText"
+      }, props.number.english)), /*#__PURE__*/React.createElement("form", {
+        id: "numberForm",
+        name: "numberForm",
+        onSubmit: handleNumber,
+        action: "/number",
+        method: "POST",
+        className: "numberForm"
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "number",
+        value: props.number.number
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "kanji",
+        value: props.number.kanji
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "reading",
+        value: props.number.reading
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "english",
+        value: props.number.english
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "id",
+        value: removedElem[0]._id
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "hidden",
+        name: "_csrf",
+        value: props.csrf
+      }), /*#__PURE__*/React.createElement("button", {
+        type: "button",
+        onClick: function onClick(e) {
+          return stopUpdating(props.csrf);
+        }
+      }, "Cancel"), /*#__PURE__*/React.createElement("input", {
+        className: "numberSubmit",
+        type: "submit",
+        value: "Save Number"
+      })))
+    );
+  }
+}; //Load in the date
+
+
+var NumberList = function NumberList(props) {
+  //If there are no previously saved translations
+  if (props.numbers.length === 0) {
+    //Return a empty list
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "numberList"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "emptyNumberList"
+      }, "There are no saved numbers!"))
+    );
+  }
+
+  console.log(props.numbers); //There are saved translations, so make a map of them
+
+  var numberNodes = props.numbers.map(function (numbers) {
+    //Return a new table entry for each saved translation
+    return (/*#__PURE__*/React.createElement("div", {
+        key: numbers._id,
+        className: "translatedNumber"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "numberSearched"
+      }, numbers.number), /*#__PURE__*/React.createElement("h3", {
+        className: "numberKanji"
+      }, numbers.kanji), /*#__PURE__*/React.createElement("h3", {
+        className: "numberText"
+      }, numbers.reading), /*#__PURE__*/React.createElement("h3", {
+        className: "englishText"
+      }, numbers.english), /*#__PURE__*/React.createElement("button", {
+        onClick: function onClick(e) {
+          return deleteMe(numbers._id);
+        }
+      }, "Remove"), /*#__PURE__*/React.createElement("button", {
+        onClick: function onClick(e) {
+          return loadData(false, props.numbers, numbers._id);
+        }
+      }, "Update"))
+    );
+  }); //Return the translations list
+
+  return (/*#__PURE__*/React.createElement("div", {
+      className: "numberList"
+    }, numberNodes)
+  );
+};
+"use strict";
+
+//HTML setup for the Text Translation form
 var TranslationForm = function TranslationForm(props) {
   //if we're not updating...
   if (!updating) {
@@ -345,38 +624,17 @@ var TranslationForm = function TranslationForm(props) {
           name: "_csrf",
           value: props.csrf
         }), /*#__PURE__*/React.createElement("button", {
+          type: "button",
           onClick: function onClick(e) {
             return stopUpdating(props.csrf);
           }
-        }, "Stop Updating"), /*#__PURE__*/React.createElement("input", {
+        }, "Cancel"), /*#__PURE__*/React.createElement("input", {
           className: "textTranslationSubmit",
           type: "submit",
           value: "Update"
         }))
       );
     }
-}; //HTML setup for the Date Translation form
-//This is not finished; will be updated
-
-
-var DateForm = function DateForm(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "dateForm",
-      name: "dateForm",
-      onSubmit: handleDate,
-      action: "/getDate",
-      method: "GET",
-      className: "dateForm"
-    }, /*#__PURE__*/React.createElement("input", {
-      type: "hidden",
-      name: "_csrf",
-      value: props.csrf
-    }), /*#__PURE__*/React.createElement("input", {
-      className: "dateSubmit",
-      type: "submit",
-      value: "Get Date"
-    }))
-  );
 }; //Load in the previously saved translations
 
 
@@ -416,18 +674,43 @@ var TranslationList = function TranslationList(props) {
       className: "translationList"
     }, translationNodes)
   );
+};
+"use strict";
+
+//HTML setup for the Date Translation form
+//This is not finished; will be updated
+var TimeForm = function TimeForm(props) {
+  return (/*#__PURE__*/React.createElement("form", {
+      id: "TimeSearch",
+      name: "TimeSearch",
+      onSubmit: getTime,
+      className: "TimeSearch"
+    }, /*#__PURE__*/React.createElement("label", {
+      "for": "time"
+    }, "Search a time"), /*#__PURE__*/React.createElement("input", {
+      type: "time",
+      id: "time",
+      name: "time",
+      required: true
+    }), /*#__PURE__*/React.createElement("input", {
+      className: "timeSubmit",
+      type: "submit",
+      value: "Get Time"
+    }))
+  );
 }; //Load in the date
 
 
-var DateList = function DateList(props) {
-  //The user hasn't searched for the date
-  if (props.date.length === 0) {
+var TimeList = function TimeList(props) {
+  console.log(props); //The user hasn't searched for the date
+
+  if (props.time.length === 0) {
     //Return a empty list
     return (/*#__PURE__*/React.createElement("div", {
         className: "translationList"
       }, /*#__PURE__*/React.createElement("h3", {
         className: "emptyTranslationList"
-      }, "Get the date please"))
+      }, "Get the time please"))
     );
   } //For future reference
 
@@ -451,37 +734,44 @@ var DateList = function DateList(props) {
 
 
   return (/*#__PURE__*/React.createElement("div", {
-      className: "dateList"
+      className: "NumberList"
     }, /*#__PURE__*/React.createElement("div", {
       key: translations._id,
-      className: "todaysDate"
+      className: "translatedNumber"
     }, /*#__PURE__*/React.createElement("h3", {
-      className: "dateText"
-    }, props.date.date), /*#__PURE__*/React.createElement("h3", {
-      className: "kanjiText"
-    }, props.date.kanji), /*#__PURE__*/React.createElement("h3", {
-      className: "readingText"
-    }, props.date.reading), /*#__PURE__*/React.createElement("h3", {
+      className: "numberSearched"
+    }, props.number.num), /*#__PURE__*/React.createElement("h3", {
+      className: "numberKanji"
+    }, props.number.kanji), /*#__PURE__*/React.createElement("h3", {
+      className: "numberText"
+    }, props.number.reading), /*#__PURE__*/React.createElement("h3", {
       className: "englishText"
-    }, props.date.english), /*#__PURE__*/React.createElement("h3", {
-      className: "translationText"
-    }, props.date.translation)))
+    }, props.number.english)))
   );
-}; //Setup the page by rendering the form and list
+};
+"use strict";
 
+var currentWindow = "Text";
+var textbox;
+var removedElem;
+var updating = false; //Get the content we will be updating
+
+var input = document.querySelector("#translationInput");
+var output = document.querySelector("#translationOutput");
+var savedData = document.querySelector("#savedTranslations"); //Setup the page by rendering the form and list
 
 var setup = function setup(csrf) {
   document.querySelector("#dateButton").addEventListener("click", function (e) {
-    setListener(e, csrf, "date");
+    setListener(e, csrf, "Date");
   });
   document.querySelector("#timeButton").addEventListener("click", function (e) {
-    setListener(e, csrf, "text");
+    setListener(e, csrf, "Text");
   });
   document.querySelector("#numberButton").addEventListener("click", function (e) {
-    setListener(e, csrf, "text");
+    setListener(e, csrf, "Number");
   });
   document.querySelector("#textButton").addEventListener("click", function (e) {
-    setListener(e, csrf, "text");
+    setListener(e, csrf, "Text");
   });
   createWindow(csrf);
 }; //Used for adding the event listeners to the buttons
@@ -499,78 +789,110 @@ function setListener(e, csrf, curWindow) {
 
 var createWindow = function createWindow(csrf) {
   var updateList = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-  //Get the content we will be updating
-  var form = document.querySelector("#newTranslation");
-  var data = document.querySelector("#translations"); //Search for which window we're currently on
-  //Then display the appropriate info
+  var updateOutput = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
+  //Search for which window we're currently on
+  //Then display the appropriate info
   switch (currentWindow) {
-    case "text":
+    case "Text":
       {
+        input.innerHTML = "";
         ReactDOM.render( /*#__PURE__*/React.createElement(TranslationForm, {
           csrf: csrf
-        }), form);
+        }), output);
         ReactDOM.render( /*#__PURE__*/React.createElement(TranslationList, {
           translations: updateList
-        }), data); //Set the textbox to the translation box
+        }), savedData); //Set the textbox to the translation box
 
-        textbox = document.querySelector("#translationText"); //if we're not updating...
-
-        if (!updating) {
-          //Load the data into the list
-          loadTranslationsFromServer();
-        }
-
+        textbox = document.querySelector("#translationText");
         break;
       }
 
-    case "date":
+    case "Date":
       {
-        ReactDOM.render( /*#__PURE__*/React.createElement(DateForm, {
+        ReactDOM.render( /*#__PURE__*/React.createElement(DateForm, null), input);
+        ReactDOM.render( /*#__PURE__*/React.createElement(DateOutput, {
+          date: updateOutput,
           csrf: csrf
-        }), form);
+        }), output);
         ReactDOM.render( /*#__PURE__*/React.createElement(DateList, {
-          date: []
-        }), data);
+          dates: updateList
+        }), savedData);
+        document.querySelector("#dateInput").value = today.toJSON().slice(0, 10);
+        break;
+      }
+
+    case "Number":
+      {
+        ReactDOM.render( /*#__PURE__*/React.createElement(NumberForm, {
+          csrf: csrf
+        }), input);
+        ReactDOM.render( /*#__PURE__*/React.createElement(NumberOutput, {
+          number: updateOutput,
+          csrf: csrf
+        }), output);
+        ReactDOM.render( /*#__PURE__*/React.createElement(NumberList, {
+          numbers: updateList
+        }), savedData);
         break;
       } //Default to the text box
 
       defaut: {
         ReactDOM.render( /*#__PURE__*/React.createElement(TranslationForm, {
           csrf: csrf
-        }), form);
+        }), output);
         ReactDOM.render( /*#__PURE__*/React.createElement(TranslationList, {
           translations: updateList
-        }), data); //Set the textbox to the translation box
+        }), savedData); //Set the textbox to the translation box
 
         textbox = document.querySelector("#translationText"); //if we're not updating...
 
         if (!updating) {
           //Load the data into the list
-          loadTranslationsFromServer();
+          loadFromServer();
         }
 
         break;
       }
 
+  } //if we're not updating...
+
+
+  if (!updating) {
+    //Load the data into the list
+    loadFromServer();
   }
 }; //Refresh the page and show all the translations
 
 
-var loadTranslationsFromServer = function loadTranslationsFromServer() {
-  sendAjax('GET', '/getTranslations', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(TranslationList, {
-      translations: data.translations
-    }), document.querySelector("#translations"));
-  });
-}; //Refresh the page and load in the date
+var loadFromServer = function loadFromServer() {
+  var direct = "/get" + currentWindow;
+  sendAjax('GET', direct, null, function (data) {
+    switch (direct) {
+      case '/getText':
+        {
+          ReactDOM.render( /*#__PURE__*/React.createElement(TranslationList, {
+            translations: data.translations
+          }), savedData);
+          break;
+        }
 
+      case '/getDate':
+        {
+          ReactDOM.render( /*#__PURE__*/React.createElement(DateList, {
+            dates: data.dates
+          }), savedData);
+          break;
+        }
 
-var loadDateFromServer = function loadDateFromServer() {
-  sendAjax('GET', '/getDate', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(DateList, {
-      date: data.date
-    }), document.querySelector("#translations"));
+      case '/getNumber':
+        {
+          ReactDOM.render( /*#__PURE__*/React.createElement(NumberList, {
+            numbers: data.numbers
+          }), savedData);
+          break;
+        }
+    }
   });
 }; //Get a new CSRF token
 
@@ -620,54 +942,24 @@ var sendAjax = function sendAjax(type, action, data, success) {
 };
 "use strict";
 
-//Huge JSON object containing all of the Japanese Hirgana and Katakana
-var jsonAlphabet = '{"vowels":{"vChars":["a:","i:","u:","e:","o:"],"hiraVowels":["あ","い","う","え","お"],"kataVowels":["ア","イ","ウ","エ","オ"]},"k":{"vChars":["ka:","ki:","ku:","ke:","ko:"],"yChars":["kya:","kyu:","kyo:"],"hiraVowels":["か","き","く","け","こ"],"hiraYs":["きゃ","きゅ","きょ"],"kataVowels":["カ","キ","ク","ケ","コ"],"kataYs":["キャ","キュ","キョ"]},"g":{"vChars":["ga:","gi:","gu:","ge:","go:"],"yChars":["gya:","gyu:","gyo:"],"hiraVowels":["が","ぎ","ぐ","げ","ご"],"hiraYs":["ぎゃ","ぎゅ","ぎょ"],"kataVowels":["ガ","ギ","グ","ゲ","ゴ"],"kataYs":["ギャ","ギュ","ギョ"]},"s":{"vChars":["sa:","si, shi:","su:","se:","so:"],"yChars":["sya, sha, shya:","syu, shu, shyu:","syo, sho, shyo:"],"hiraVowels":["さ","し","す","せ","そ"],"hiraYs":["しゃ","しゅ","しょ"],"kataVowels":["サ","シ","ス","セ","ソ"],"kataYs":["シャ","シュ","ショ"]},"z":{"vChars":["za:","zi, ji:","zu:","ze:","zo:"],"yChars":["zya, ja, jya:","zyu, ju, jyu:","zyo, jo, jyo:"],"hiraVowels":["ざ","じ","ず","ぜ","ぞ"],"hiraYs":["じゃ","じゅ","じょ"],"kataVowels":["ザ","ジ","ズ","ゼ","ゾ"],"kataYs":["ジャ","ジュ","ジョ"]},"t":{"vChars":["ta:","ti, chi:","tu, tsu:","te:","to:"],"yChars":["tya, cha, chya:","tyu, chu, chyu:","tyo, cho, chyo:"],"hiraVowels":["た","ち","つ","て","と"],"hiraYs":["ちゃ","ちゅ","ちょ"],"kataVowels":["タ","チ","ツ","テ","ト"],"kataYs":["チャ","チュ","チョ"]},"d":{"vChars":["da:","di:","du:","de:","do:"],"yChars":["dya, dza, ja, jya:","dyu, dzu, ju, jyu:","dyo, dzo, jo, jyo:"],"hiraVowels":["だ","ぢ","づ","で","ど"],"hiraYs":["ぢゃ","ぢゅ","ぢょ"],"kataVowels":["ダ","ヂ","ヅ","デ","ド"],"kataYs":["ヂャ","ヂュ","ヂョ"]},"n":{"vChars":["na:","ni:","nu:","ne:","no:"],"yChars":["nya:","nyu:","nyo:"],"nChar":"n:","hiraVowels":["な","に","ぬ","ね","の"],"hiraYs":["にゃ","にゅ","にょ"],"hiraN":"ん","kataVowels":["ナ","ニ","ヌ","ネ","ノ"],"kataYs":["ニャ","ニュ","ニョ"],"kataN":"ン"},"h":{"vChars":["ha:","hi:","hu, fu:","he:","ho:"],"yChars":["hya:","hyu:","hyo:"],"hiraVowels":["は","ひ","ふ","へ","ほ"],"hiraYs":["ひゃ","ひゅ","ひょ"],"kataVowels":["ハ","ヒ","フ","ヘ","ホ"],"kataYs":["ヒャ","ヒュ","ヒョ"]},"b":{"vChars":["ba:","bi:","bu:","be:","bo:"],"yChars":["bya:","byu:","byo:"],"hiraVowels":["ば","び","ぶ","べ","ぼ"],"hiraYs":["びゃ","びゅ","びょ"],"kataVowels":["バ","ビ","ブ","ベ","ボ"],"kataYs":["ビャ","ビュ","ビョ"]},"p":{"vChars":["pa:","pi:","pu:","pe:","po:"],"yChars":["pya:","pyu:","pyo:"],"hiraVowels":["ぱ","ぴ","ぷ","ぺ","ぽ"],"hiraYs":["ぴゃ","ぴゅ","ぴょ"],"kataVowels":["パ","ピ","プ","ペ","ポ"],"kataYs":["ピャ","ピュ","ピョ"]},"m":{"vChars":["ma:","mi:","mu:","me:","mo:"],"yChars":["mya:","myu:","myo:"],"hiraVowels":["ま","み","む","め","も"],"hiraYs":["みゃ","みゅ","みょ"],"kataVowels":["マ","ミ","ム","メ","モ"],"kataYs":["ミャ","ミュ","ミョ"]},"y":{"vChars":["ya:","yu:","yo:"],"hiraYs":["や","ゆ","よ"],"kataYs":["ヤ","ユ","ヨ"]},"r":{"vChars":["ra:","ri:","ru:","re:","ro:"],"yChars":["rya:","ryu:","ryo:"],"hiraVowels":["ら","り","る","れ","ろ"],"hiraYs":["りゃ","りゅ","りょ"],"kataVowels":["ラ","リ","ル","レ","ロ"],"kataYs":["リャ","リュ","リョ"]},"w":{"vChars":["wa:","wo:"],"hiraVowels":["わ","を"],"kataVowels":["ワ","ヲ"]},"special":{"vChars":["a, A:","i, I:","u, U:","e, E:","o, O:"],"kataVowels":["ァ","ィ","ゥ","ェ","ォ"],"kataV":"ヴ","vChar":"V:"},"tsu":{"hiraTsu":"っ","kataTsu":"ッ"},"punctuation":["。","、","ー","「","」","ゝ","ゞ","ヽ","ヾ","々","〜"]}';
-var alphabet = JSON.parse(jsonAlphabet); //Dictionary used for printing vowel characters
+///This is a very small file with only one function
+//But it did not belong in either the textTranslations.js file
+//nor did it belong in the numberTranslations.js fule
+//due to both of these files relying on the JSON files being read in.
+//Load the page and set off the chain of events
+$(document).ready(function () {
+  //Get the JSON files read in from file
+  sendAjax('GET', '/getJSON', null, function (res) {
+    //Set the text dictionaries
+    setTextJSON(res); //Set the number dictionaries
 
-var vowelDictionary = {
-  "a": 0,
-  "i": 1,
-  "u": 2,
-  "e": 3,
-  "o": 4
-}; //Dictionary used for printing y characters
+    setNumberJSON(res);
+  });
+});
+"use strict";
 
-var yDictionary = {
-  "a": 0,
-  "u": 1,
-  "o": 2
-}; //Dictionary used directing the special characters to the desired alphabet
-
-var specialDictionary = {
-  "j": "z",
-  "c": "t",
-  "f": "h",
-  "w": "w",
-  "y": "y",
-  "l": "r",
-  "_": "special"
-}; //Dictionary used for printing punctuation characters
-
-var punctuationDictionary = {
-  ".": 0,
-  ",": 1,
-  "-": 2,
-  "<": 3,
-  "[": 3,
-  "{": 3,
-  ">": 4,
-  "]": 4,
-  "}": 4,
-  "'": 5,
-  '"': 6,
-  ";": 7,
-  ":": 8,
-  "`": 9,
-  "~": 10
-}; //Array used for checking if a character should be made into a tsu
-//For example, the word kka would be 'small-tsu' 'ka'
-
-var tsuList = ["k", "s", "t", "p"];
+var alphabet;
+var dictionaries;
 var inputData = {
   title: 'Kanji Finder',
   //Title for the page
@@ -714,10 +1006,10 @@ var inputHandler = function inputHandler(e) {
       for (var i = 4; i >= 1; i--) {
         var tmp = inputData.message.charAt(inputData.pos - i); //Finds the character last typed in the text field
 
-        if (alphabet[tmp] !== undefined || specialDictionary[tmp] !== undefined) //Checks to see if the character exists in either dictionary
+        if (alphabet[tmp] !== undefined || dictionaries.specialDictionary[tmp] !== undefined) //Checks to see if the character exists in either dictionary
           {
             //It does, so check which dictionary it's in
-            alphabet[tmp] !== undefined ? inputData.characterArray = tmp : inputData.characterArray = specialDictionary[tmp]; //Set the state to the current loop's number. The state-check will handle the rest now.
+            alphabet[tmp] !== undefined ? inputData.characterArray = tmp : inputData.characterArray = dictionaries.specialDictionary[tmp]; //Set the state to the current loop's number. The state-check will handle the rest now.
 
             inputData.state = i;
             break;
@@ -774,10 +1066,10 @@ var stateCheck = function stateCheck(input) {
 
 
 var firstCase = function firstCase(input) {
-  if (vowelDictionary[input] !== undefined) //If the user tpyed a vowel, check to see which vowel
+  if (dictionaries.vowelDictionary[input] !== undefined) //If the user tpyed a vowel, check to see which vowel
     {
       inputData.characterArray = "vowels";
-      printCharacter(setCharacter(vowelDictionary[input]), 1);
+      printCharacter(setCharacter(dictionaries.vowelDictionary[input]), 1);
     }
 
   if (input == "v") {
@@ -793,12 +1085,12 @@ var firstCase = function firstCase(input) {
       inputData.characterArray = input; //Set the array's pointer to be to the input just entered
 
       inputData.state = 2; //and set the state to 2 so we move onto the second case
-    } else if (specialDictionary[input] !== undefined) {
-    inputData.characterArray = specialDictionary[input]; //Set the array's pointer to be to the input just entered
+    } else if (dictionaries.specialDictionary[input] !== undefined) {
+    inputData.characterArray = dictionaries.specialDictionary[input]; //Set the array's pointer to be to the input just entered
 
     inputData.state = 2;
-  } else if (punctuationDictionary[input] !== undefined) {
-    printCharacter(alphabet["punctuation"][punctuationDictionary[input]], inputData.state);
+  } else if (dictionaries.punctuationDictionary[input] !== undefined) {
+    printCharacter(alphabet["punctuation"][dictionaries.punctuationDictionary[input]], inputData.state);
   } else {
     inputData.state = 1;
   }
@@ -810,14 +1102,14 @@ var secondCase = function secondCase(input) {
   var preChar = inputData.message.charAt(inputData.pos - 2).toLowerCase(); //Gets the character right before the current position
   //If the character is a tsu, (so for example, kk was entered)...
 
-  if (tsuList.includes(preChar) && preChar == input) {
+  if (dictionaries.tsuList.includes(preChar) && preChar == input) {
     setArray("hiraTsu", "kataTsu"); //Set the array to tsu
 
     if (inputData.arrayName == "kataTsu") input = input.toUpperCase(); //set the character after the tsu to the appropriate typing.
 
     printCharacter(input, 1, true); //print the character
   } //Check the previous character behind the input
-  else if (specialDictionary[preChar] !== undefined && preChar != "l") {
+  else if (dictionaries.specialDictionary[preChar] !== undefined && preChar != "l") {
       switch (preChar) {
         //These c, f, and j are special characters, so they need to be handled uniquely. 
         case "c":
@@ -865,10 +1157,10 @@ var secondCase = function secondCase(input) {
 
         case "_":
           {
-            if (vowelDictionary[input] !== undefined) //If the user tpyed a vowel, check to see which vowel
+            if (dictionaries.vowelDictionary[input] !== undefined) //If the user tpyed a vowel, check to see which vowel
               {
                 inputData.arrayName = "kataVowels";
-                printCharacter(setCharacter(vowelDictionary[input]), 1);
+                printCharacter(setCharacter(dictionaries.vowelDictionary[input]), 1);
               } else //The user entered no valid inputs; return to the first case.
               {
                 resetState(1, input);
@@ -877,9 +1169,9 @@ var secondCase = function secondCase(input) {
             break;
           }
       }
-    } else if (vowelDictionary[input] !== undefined) //If the user typed a vowel, check to see which vowel
+    } else if (dictionaries.vowelDictionary[input] !== undefined) //If the user typed a vowel, check to see which vowel
       {
-        printCharacter(setCharacter(vowelDictionary[input]), 1);
+        printCharacter(setCharacter(dictionaries.vowelDictionary[input]), 1);
       } else if (lastChar('s') || lastChar('t') || input == "y") {
       inputData.state = 3;
     } else {
@@ -960,7 +1252,7 @@ var resetState = function resetState(num, input) {
 
   if (alphabet[preChar] !== undefined) {
     inputData.characterArray = preChar;
-  } else if (vowelDictionary[input] !== undefined) {
+  } else if (dictionaries.vowelDictionary[input] !== undefined) {
     inputData.characterArray = "vowels";
   }
 
@@ -1013,9 +1305,9 @@ var uCheck = function uCheck(input, stateIndex) {
 
 
 var yCheck = function yCheck(input, stateIndex) {
-  if (yDictionary[input] !== undefined) {
+  if (dictionaries.yDictionary[input] !== undefined) {
     setArray("hiraYs", "kataYs");
-    printCharacter(setCharacter(yDictionary[input]), stateIndex);
+    printCharacter(setCharacter(dictionaries.yDictionary[input]), stateIndex);
   } else if (input == "y" && inputData.state <= 3) {
     inputData.state++;
   } else {
@@ -1031,3 +1323,273 @@ var iCheck = function iCheck(input, stateIndex) {
     yCheck(input, stateIndex);
   }
 };
+
+var setTextJSON = function setTextJSON(jsonDictionary) {
+  alphabet = jsonDictionary.text;
+  dictionaries = jsonDictionary.dictionaries;
+};
+"use strict";
+
+var dates;
+var numerics;
+var today;
+var output = document.querySelector("#translationOutput");
+
+var setNumberJSON = function setNumberJSON(jsonDictionary) {
+  //Read in the JSON file data
+  dates = jsonDictionary.dates;
+  numerics = jsonDictionary.numerics; //Get today's current date
+
+  today = new Date();
+};
+
+var getDate = function getDate(e) {
+  //Keep the page from updating
+  e.preventDefault(); //new JSON object
+
+  var date = {}; //Read in the search
+
+  var search = document.querySelector("#dateInput").value; //Parse it's data
+
+  var info = search.split("-"); //Get each individual date from the search
+
+  var d = info[2] - 1;
+  var m = info[1] - 1;
+  var y = info[0] - 0; //Find what day the date is using a new date
+
+  var w = new Date(search).getDay(); // Get the days, week, and month translations
+
+  var day = dates.days[d];
+  var weekday = dates.weekdays[w];
+  var month = dates.months[m]; // Return the JSON block
+
+  date.date = "".concat(m + 1, "/").concat(d + 1, "/").concat(y);
+  date.kanji = "".concat(month.kanji + day.kanji, " (").concat(weekday.kanji, ")");
+  date.reading = "".concat(month.reading, " ").concat(day.reading, " (").concat(weekday.reading, ")");
+  date.english = "".concat(month.english, " ").concat(day.english, " (").concat(weekday.english, ")");
+  date.translation = "".concat(month.month, " ").concat(day.date, " (").concat(weekday.day, ")"); //return date;
+
+  sendAjax('GET', '/getToken', null, function (result) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(DateOutput, {
+      date: date,
+      csrf: result.csrfToken
+    }), output);
+  });
+}; // Used for translating numbers from english to japanese
+
+
+var getNumber = function getNumber(e) {
+  e.preventDefault();
+  var input = document.querySelector("#numberInput").value; // Create the json object
+
+  var data = {}; // Create a counter
+
+  var counter = {
+    counter: 0
+  }; // Check if the input's actually valid or not
+
+  if (Number.isNaN(input)) {
+    // Letters were entered
+    console.log("AAAA");
+    return false;
+  } // translate the string back into a number, and get it's length
+
+
+  var numString = input.toString();
+  var length = numString.length;
+  data.number = input; // Create the JSON variables
+
+  data.kanji = '';
+  data.reading = '';
+  data.english = ''; // Loop through the number
+
+  for (var i = length; i >= 1; i--) {
+    // Make sure there are no 0's; They are not counted in japanese
+    if (numString[i - 1] !== '0') {
+      // Use the counter to start at the first number on the right
+      // Case 0 would be 1, case 1 would be 10, case 2 would be 100, etc
+      switch (counter.counter) {
+        case 9:
+          appendNumbers(0, numerics.powers, data, false);
+          appendNumbers(4, numerics.powers, data, false);
+          appendNumbers(numString[i - 1], numerics.numbers, data, false);
+          break;
+
+        case 8:
+          appendNumbers(4, numerics.powers, data, false);
+          appendNumbers(numString[i - 1], numerics.numbers, data, false);
+          break;
+
+        case 7:
+          appendNumbers(2, numerics.powers, data, true);
+          appendNumbers(numString[i - 1], numerics.numbers, data, false);
+          break;
+
+        case 6:
+          appendNumbers(1, numerics.powers, data, false);
+          appendNumbers(numString[i - 1], numerics.numbers, data, true);
+          break;
+
+        case 5:
+          appendNumbers(0, numerics.powers, data, false);
+          appendNumbers(numString[i - 1], numerics.numbers, data, false);
+          break;
+
+        case 4:
+          appendNumbers(3, numerics.powers, data, false);
+          appendNumbers(numString[i - 1], numerics.numbers, data, false);
+          break;
+
+        case 3:
+          appendNumbers(2, numerics.powers, data, false);
+          appendNumbers(numString[i - 1], numerics.numbers, data, true);
+          break;
+
+        case 2:
+          appendNumbers(1, numerics.powers, data, false);
+          appendNumbers(numString[i - 1], numerics.numbers, data, true);
+          break;
+
+        case 1:
+          appendNumbers(0, numerics.powers, data, false);
+          appendNumbers(numString[i - 1], numerics.numbers, data, true);
+          break;
+
+        case 0:
+          appendNumbers(numString[i - 1], numerics.numbers, data, false);
+          break;
+
+        default:
+          data.english += ' ';
+          break;
+      }
+    } // increment the counter
+
+
+    counter.counter++;
+  }
+
+  console.log(data);
+  sendAjax('GET', '/getToken', null, function (result) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(NumberOutput, {
+      number: data,
+      csrf: result.csrfToken
+    }), output);
+  });
+}; // Search the numeric array and retrieve the kanji based off the number
+
+
+var appendNumbers = function appendNumbers(num, array, response, isPower) {
+  // Parse the number and get it's json array relation
+  var searchNum = Number.parseInt(num, 10);
+  var number = array[searchNum]; // Check If the current power is a single-character kanji,
+  // and the number entered is either 1 or 0, we skip it.
+
+  if (isPower && searchNum === 1 || isPower && searchNum === 0) {
+    response.english += ' ';
+  } else {
+    // The numbers valid, so append it's values to the JSON object
+    response.kanji = number.kanji + response.kanji;
+    response.reading = "".concat(number.reading, " ").concat(response.reading);
+    response.english = "".concat(number.english, " ").concat(response.english);
+  }
+}; //const getTime = (e) =>
+//{
+
+/*
+//Takes the time inputs and finds if they are AM or PM
+      //Also turns the times from strings into numbers                  
+      getTime(time) {
+        const [strHour, strMin] = time.split(':');
+        hour = parseInt(strHour, 10);
+        min = parseInt(strMin, 10);
+        const midday = this.getMidday(hour);
+        if (hour == 0) hour = 12;
+        const scheduleTime = (hour * 100) + min;
+        if (hour >= 13) hour -= 12;
+          return [hour, min, midday, strHour, strMin, scheduleTime];
+      },
+    
+      //Used for checking if the time is past or before midday
+      getMidday(hour) {
+        if (hour >= 12) {
+          return 'PM';
+        }
+          return 'AM';
+      },
+    */
+
+/*
+          //Add schedule does not post the schedule, but rather creates a entry in the schedule
+        addSchedule() {
+          // Check if the time fields have input
+          if (this.timeX && this.timeY && this.message) {
+              //They do, so grab them, and get their values
+            const timeA = this.getTime(this.timeX);
+            const timeB = this.getTime(this.timeY);
+      
+            //timeA is the starting time, and timeB is the ending
+            const startTime = timeA[5];
+            const endTime = timeB[5];
+            //Flag to see if the new schedule's time was valid
+            let valid = true;
+      
+            //Check to see if the schedule exists (For safety)
+            if (this.schedule) {
+                //Check to see if the times actually are coherent; you can't have a schedule that starts at a later time than when it ends
+              if (startTime >= endTime) {
+                this.status = 'Invalid time entererd!';
+                valid = false;
+              }
+      
+              //Loop through the schedule and check the times; if one overlaps, it's invalid. Can't do 2 things at once.
+              for (let i = 0; i < this.schedule.length; i++) {
+                if (this.schedule[i].startTime <= startTime && this.schedule[i].endTime >= endTime) {
+                  this.status = 'That time slot is already taken!';
+                  valid = false;
+                } else {
+                  this.status = '';
+                }
+              }
+      
+              //There's no invalid entries; create a new entry
+              if (valid) {
+                const entry = {
+                  startTime,
+                  endTime,
+                  time: `${timeA[0]}:${timeA[4]} ${timeA[2]} - ${timeB[0]}:${timeB[4]} ${timeB[2]}`,
+                  entry: this.message,
+                };
+      
+                //Push it onto the schedule, and sort it
+                this.schedule.push(entry);
+                this.schedule.sort((a, b) => a.startTime - b.startTime);
+              }
+            }
+          }
+        },
+      
+        //Get the user's previous schedule
+        getSchedule() {
+          const formData = `/getSchedule?username=${this.username}`;
+          this.sendAjax(formData, 0, false);
+          this.status = "Finding your Schedule..."
+        },
+      
+        //Post your current schedule to the server and save it.
+        postSchedule() {
+          if(this.schedule.length > 0)
+          {
+            const jsonSchedule = JSON.stringify(this.schedule);
+          const formData = `username=${this.username}&schedule=${jsonSchedule}`;
+          this.sendPost('/addSchedule', formData, 0, false);
+          this.status = "Saving your Schedule..."
+          }
+          else
+          {
+            this.status = "Please fill out your schedule before posting it!"
+          }
+        },
+      
+       
+*/

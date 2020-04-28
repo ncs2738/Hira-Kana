@@ -54,13 +54,13 @@
 
     "weekdays":
     [
-        {"kanji":"日曜日","reading":"にちようび","english":"nichiyoubi","day":"Sunday"},
         {"kanji":"月曜日","reading":"げつようび","english":"getsuyoubi","day":"Monday"},
         {"kanji":"火曜日","reading":"かようび","english":"kayoubi","day":"Tuesday"},
         {"kanji":"水曜日","reading":"すいようび","english":"suiyoubi","day":"Wednesday"},
         {"kanji":"木曜日","reading":"もくようび","english":"mokuyoubi","day":"Thursday"},
         {"kanji":"金曜日","reading":"きんようび","english":"kinyoubi","day":"Friday"},
-        {"kanji":"土曜日","reading":"どようび","english":"doyoubi","day":"Saturday"}
+        {"kanji":"土曜日","reading":"どようび","english":"doyoubi","day":"Saturday"},
+        {"kanji":"日曜日","reading":"にちようび","english":"nichiyoubi","day":"Sunday"}
     ],
 
     "seasons":
