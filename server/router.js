@@ -10,6 +10,7 @@ const router = (app) => {
 
   // Translations
   app.get('/translations', mid.requiresLogin, controllers.TextTranslation.translationsPage);
+
   // JSON loader for the translations
   app.get('/getJSON', mid.requiresLogin, controllers.JSONController.getJSON);
 
@@ -32,10 +33,10 @@ const router = (app) => {
   app.post('/updateNumber', mid.requiresLogin, controllers.NumberTranslation.updateNumber);
 
   // Game
-  app.get('/game', mid.requiresLogin, controllers.Game.gamePage);
-
-  // Kanji Catcher
-  app.get('/kanji', mid.requiresLogin, controllers.KanjiCatcher.kanjiPage);
+  app.get('/game', mid.requiresLogin, controllers.HighScore.gamePage);
+  app.post('/newScore', mid.requiresLogin, controllers.HighScore.saveScore);
+  app.get('/getScore', mid.requiresLogin, controllers.HighScore.getScore);
+  app.post('/highScore', mid.requiresLogin, controllers.HighScore.updateScore);
 
   // Update Password
   app.get('/password', mid.requiresSecure, mid.requiresLogin, controllers.Account.passwordPage);

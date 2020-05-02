@@ -1,33 +1,41 @@
-
 //HTML setup for the Date Translation form
-//This is not finished; will be updated
+
+//Used for the original date
 const DateForm = (props) =>
 {
-    return(
-        <form id="dateSearch" 
-        name="dateSearch"
-        onSubmit={getDate}
-        className="dateSearch"
-        >
-            <label for="date">Enter Date:</label>
-            <input type="date" id="dateInput" name="date"/>
-            <input className="dateSubmit" type="submit" value="Get Date"/>
-        </form>
-    );
+    //Return the date
+    //If we're not updating, show this render
+    if(!updating)
+    {
+        return(
+            <form id="dateSearch" 
+            name="dateSearch"
+            onSubmit={getDate}
+            className="dateSearch"
+            >
+                <label for="date">Search a date to translate</label>
+                <input type="date" id="dateInput" className="dataInput" name="date"/>
+                <input className="dateSubmit" type="submit" value="Translate Date"/>
+            </form>
+        );
+    }
+    //We are updating, so show this one
+    else
+    {
+        return(
+            <form id="dateSearch" 
+            name="dateSearch"
+            onSubmit={getDate}
+            className="dateSearch"
+            >
+                <label for="date">Re-search a date to update</label>
+                <input type="date" id="dateInput" className="dataInput" name="date"/>
+                <input className="dateSubmit" type="submit" value="Translate New Date"/>
+            </form>
+        );
+    }
 };
 
-/*
-        <form id="dateForm" 
-        name="dateForm"
-        onSubmit={handleDate}
-        action = "/getDate"
-        method="GET"
-        className="dateForm"
-        >
-            <input type="hidden" name="_csrf" value={props.csrf}/>
-            <input className="dateSubmit" type="submit" value="Get Date"/>
-        </form>
-*/
 //Load in the date
 const DateOutput = function(props) 
 {
@@ -36,29 +44,10 @@ const DateOutput = function(props)
     {
         //Return a empty list
         return (
-            <div className="translationList">
-                <h3 className="emptyTranslationList">Get the date please</h3>
-            </div>
+            <h3 className="searchOutput"></h3>
         );
     }
 
-    //For future reference
-    /*
-    //There are saved translations, so make a map of them
-    const dateNodes = props.date.map(function(date)
-    {
-        //Return a new table entry for each saved translation
-        return (
-            <div key={translations._id} className="todaysDate">
-                <h3 className="dateText">{date.date}</h3>
-                <h3 className="kanjiText">{date.kanji}</h3>
-                <h3 className="readingText">{date.reading}</h3>
-                <h3 className="englishText">{date.english}</h3>
-                <h3 className="translationText">{date.translation}</h3>
-            </div>
-        );
-    });
-    */
     //Return the date
     if(!updating)
     {
@@ -116,8 +105,8 @@ const DateOutput = function(props)
                     <input type="hidden" name="translation" value={props.date.translation}/>
                     <input type="hidden" name="id" value={removedElem[0]._id}/>
                     <input type="hidden" name="_csrf" value={props.csrf}/>
+                    <input className="dateSubmit" type="submit" value="Update"/>
                     <button type="button" onClick={e => stopUpdating(props.csrf)}>Cancel</button>
-                    <input className="dateSubmit" type="submit" value="Update Date"/>
                 </form>
             </div>
         );
@@ -134,7 +123,7 @@ const DateList = function(props)
         //Return a empty list
         return (
             <div className="dateList">
-                <h3 className="emptyDateList">There are no saved dates!</h3>
+                <h3 className="emptyList">There are no saved dates!</h3>
             </div>
         );
     }
@@ -144,14 +133,14 @@ const DateList = function(props)
     {
         //Return a new table entry for each saved translation
         return (
-            <div key={dates._id} className="date">
-                <h3 className="translationDate">{dates.date}</h3>
-                <h3 className="translationKanji">{dates.kanji}</h3>
-                <h3 className="translationReading">{dates.reading}</h3>
-                <h3 className="translationEnglish">{dates.english}</h3>
-                <h3 className="translationText">{dates.translation}</h3>
-                <button onClick={e => deleteMe(dates._id)}>Remove</button>
-                <button onClick={e => loadData(false, props.dates, dates._id)}>Update</button>
+            <div key={dates._id} className="savedTranslation">
+                <h4 className="translationDate">{dates.date}</h4>
+                <h4 className="translationKanji">{dates.kanji}</h4>
+                <h4 className="translationReading">{dates.reading}</h4>
+                <h4 className="translationEnglish">{dates.english}</h4>
+                <h4 className="translationText">{dates.translation}</h4>
+                <button onClick={e => updateTranslation(false, props.dates, dates._id)}>Update</button>
+                <button onClick={e => deleteTranslation(dates._id)}>Delete</button>
             </div>
         );
     });

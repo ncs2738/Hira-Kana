@@ -1,14 +1,18 @@
-//Show our domo friend if there's an error
+//Update the error message in the DOM
 const handleError = (message) =>
 {
     $("#errorMessage").text(message);
-    $("#domoMessage").animate({width:'toggle'},350);
 };
 
-//Hide the domo-friend when they're not needed
+//Clear the error message in the DOM
+const clearError = () =>
+{
+    $("#errorMessage").text("");
+}
+
+//Redirect us to a new page
 const redirect = (response) =>
 {
-    $("#domoMessage").animate({width:'hide'}, 350);
     window.location = response.redirect;
 };
 

@@ -4,11 +4,11 @@ const models = require('../models');
 // Set up the Translation models
 const { DateTranslation } = models;
 
-// Used for saving a new translation
+// Used for saving a new date translation
 const saveDateTranslation = (req, res) => {
   // Make sure all fields are there
   if (!req.body) {
-    return res.status(400).json({ error: 'Please enter a translation to be saved!' });
+    return res.status(400).json({ error: 'Please enter a date to be saved!' });
   }
 
   // Set an object to the variables + the owner's id
@@ -40,7 +40,7 @@ const saveDateTranslation = (req, res) => {
     }
 
     // There's a error, so return the problem
-    return res.status(400).json({ error: 'An error occured; Sorry.' });
+    return res.status(400).json({ error: 'An error occured. Our apologies' });
   });
 
   return translationPromise;
@@ -52,7 +52,7 @@ const updateDateTranslation = (req, res) => {
     // A error occured
     if (err) {
       console.log(err);
-      return res.status(400).json({ err: 'An error occurred. Sorry about that.' });
+      return res.status(400).json({ err: 'An error occurred. Our apologies.' });
     }
 
     // The app loaded right; reload the app again, and get a new token
@@ -60,23 +60,22 @@ const updateDateTranslation = (req, res) => {
   });
 };
 
-// used for deleting the user's translations
+// used for deleting the user's date translations
 const deleteDateTranslation = (req, res) => {
-  // Send the translation-id, and check for errors
+  // Send the date translation-id, and check for errors
   DateTranslation.DateTranslationModel.deleteTranslation(req.body.id, (err, docs) => {
     // Failed in deleting right
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'Error in deleting. Sorry bud.' });
+      return res.status(400).json({ error: 'Error in deleting. Our apologies.' });
     }
 
     // Deleted properly.
-    console.log('Succesfully deleted!');
     return res.json({ translations: docs });
   });
 };
 
-// Get all of the user's translations
+// Get all of the user's dat etranslations
 const getDateTranslations = (request, response) => {
   const req = request;
   const res = response;
@@ -86,10 +85,10 @@ const getDateTranslations = (request, response) => {
     // An error occurred
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'An error occurred. Sorry bud.' });
+      return res.status(400).json({ error: 'An error occurred. Our apologies.' });
     }
 
-    // Return the translations
+    // Return the date translations
     return res.json({ dates: docs });
   });
 };

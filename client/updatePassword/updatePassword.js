@@ -3,36 +3,35 @@ const handleAccount = (e) =>
 {
     //Keep the page from refreshing after sending the form
     e.preventDefault();
-    fieldCheck();
-}
 
-const fieldCheck = () =>
-{
+    //Check if all fields have been entered
     if($("#curPass").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '')
     {
-        //handleError("Your username or password's empty bro.");
-        let errorMessage = "All fields are required dude.";
-        console.log(errorMessage);
+        handleError("All fields are required.");
         return false;
     } 
 
     //Check if the passwords are equivalent
     if($("#pass").val() !== $("#pass2").val())
     {
-        handleError("The passwords don't match bro.");
+        handleError("Your new passwords don't match.");
         return false;
     }
 
     //Check if the old and new password match
     if($("#curpass").val() === $("#pass").val())
     {
-        handleError("Please enter a actually new password.");
+        handleError("Your old password and new passwords match. Please enter a new password.");
         return false;
     }
     
     //Send the AJAX call with the login form's data
-    sendAjax('POST', $("#passwordForm").attr("action"), $("#passwordForm").serialize(), (result) =>
+    sendAjax('POST', $("#passwordForm").attr("action"), $("#passwordForm").serialize(), (res) =>
     {
+        //get rid of any errors
+        clearError();
+
+        //Update the Dom showing that their password has updated
         ReactDOM.render(
             <UpdateWindow />,
             document.querySelector("#content")
@@ -40,42 +39,6 @@ const fieldCheck = () =>
     });
 
     return false;
-};
-
-//HTML setup for the sign-up form
-const PasswordWindow = (props) =>
-{
-    return(
-        <form id="passwordForm" 
-        name="passwordForm"
-        onSubmit={handleAccount}
-        action = "/updatePassword"
-        method="POST"
-        className="mainForm"
-        >
-            <label htmlFor="curPass">Current Password:</label>
-            <input id="curPass" type="password" name="curPassword" placeholder="current password"/>
-            <label htmlFor="pass">New Password:</label>
-            <input id="pass" type="password" name="pass" placeholder="new password"/>
-            <label htmlFor="pass2">Re-enter Password:</label>
-            <input id="pass2" type="password" name="pass2" placeholder="retype password"/>
-            <input type="hidden" name="_csrf" value={props.csrf}/>
-            <input className="formSubmit" type="submit" value="Update Password"/>
-        </form>
-    );
-};
-
-
-//Shows that we updated our password
-const UpdateWindow = () =>
-{
-    console.log("I AM CALLED!");
-
-    return(
-        <div className = "welcome">
-            <h1>Your password has been updated!</h1>
-        </div>
-    );
 };
 
 //Used for generating new CRSF tokens;

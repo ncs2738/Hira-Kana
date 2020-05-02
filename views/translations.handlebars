@@ -8,29 +8,35 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 </head>
 <body>
 
   <nav class = "siteLinks">
-    <div class="navlink"><a id="gameButton" href="/game">Placeholder for Game</a></div>
-    <div class="navlink"><a id="kanjiButton" href="/kanji">Placeholder for Kanji</a></div>
+    <div class="navlink"><a id="gameButton" href="/game">Typing Game</a></div>
     <div class="navlink"><a id="passwordButton"href="/password">Update Password</a></div>
     <div class="navlink"><a id="logoutButton"href="/logout">Log out</a></div>
   </nav>
 
   <nav class = "appLinks">
     <div class="navlink"><a id="dateButton" href="/getDate">Date</a></div>
-    <div class="navlink"><a id="timeButton" href="/getTime">Time</a></div>
     <div class="navlink"><a id="numberButton" href="/getNumber">Number</a></div>
     <div class="navlink"><a id="textButton" href="/getText">Text</a></div>
   </nav>
 
-  <section id="translationInput"></section>
+<div class="container-fluid" id="translators">
+    <div class="col-4 align-self-start" id="searchedData">
 
-  <section id="translationOutput"></section>
+      <section id="translationInput"></section>
 
-   <section id="savedTranslations"></section>
+      <section id="translationOutput"></section>
+
+      <section id="errorMessage"></section>
+    </div>
+
+    <div class="col-5 align-self-start"  id="savedData">
+      <section id="savedTranslations"></section>
+    </div>
+</div>
 
   <script src="/assets/translatorsBundle.js"></script>
 </body>

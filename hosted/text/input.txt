@@ -1,0 +1,220 @@
+﻿JAPANESE SPELLING | ENGLISH SPELLING | SEARCH TAGS
+がっこう | School | medium, location, chap1, chap3, hiragana
+あい | Love | easy, expression, hiragana, general
+いま | Now | easy, chap1, hiragana, expression
+えいご | English | easy, chap1, hiragana, general
+こうこう | High School | easy, chap1, hiragana, location, general
+ごご | P.M. | easy, chap1, hiragana, general, time
+ごぜん | A.M. | easy, chap1, hiragana, general, time
+せんこう | Major | easy, chap1, hiragana, general
+せんせい | Teacher / Professor | easy, chap1, hiragana, general, people
+だいがく | College / University |  medium, chap1, hiragana, general, location
+でんわ | Telephone | easy, chap1, hiragana, general, object
+ともだち | Friend | medium, chap1, hiragana, general, people
+なまえ | Name | easy, chap1, hiragana, general, expression, people
+なに | What | easy, chap1, hiragana, general, expression
+にほん | Japan |  easy, chap1, hiragana, general, location
+はん | Half | easy, chap1, hiragana, general, expression, time
+ばんごお | Number | medium, chap1, hiragana, general
+りゅうがくせい | International Student | hard, chap1, hiragana, general, people
+わたし | I (Myself) | easy, chap1, hiragana, general, people
+アメリカ | America | easy, medium, chap1, chap2, katakana, location, general
+イギリス | Britain |  easy, medium, chap1, chap2, katakana, location, general
+オーストラリア | Australia | hard, chap1, katakana, location, general
+かんこく | Korea | easy, medium, chap1, chap2, hiragana, location, general
+スウェーデン | Sweden | medium, hard, chap1, katakana, location, general
+ちゅうごく | China | | medium, hard, chap1, chap2, hiragana, location, general
+かがく | Science | easy, chap1, general, hiragana
+アジアけんきゅう | Asian Studies | hard, chap1, general, hiragana, katakana
+けいざい | Economics | easy, medium, chap1, chap2, general, hiragana
+こくさいかんけい | International Relations | hard, chap1, hiragana, general
+コンピューター | Computer | medium, hard, chap1, chap2, general, katakana
+じんるいがく | Anthropology | medium, hard, chap1, general, hiragana
+せいじ | Politics | easy, medium, chap1, general, hiragana
+ビジネス | Business | medium, hard, chap1, chap2, general, katakana
+ぶんがく | Literature | medium, hard, chap1, general, hiragana
+れきし | History | easy, general, chap1, chap2, hiragana
+しごと | Job / Work | easy, chap1, hiragana, general
+いしゃ | Doctor | easy, chap1, hiragana, general, people
+かいしゃいん | Office Worker | medium, hard, chap1, hiragana, general, people
+しゅふ | Housewife | easy, chap1, general, hiragana, people
+だいがくいんせい | Graduate Student | hard, chap1, general, hiragana, people
+だいがくせい | College Student | medium, hard, chap1, general, hiragana, people
+べんごし | Lawyer | easy, medium, chap1, general, hiragana, people
+おかあさん | Mother | medium, hard, chap1, chap2, general, hiragana, people
+おとうさん | Father | medium, hard, chap1, chap2, general, hiragana, people
+おねえさん | Older Sister | medium, hard, chap1, general, hiragana, people
+おにいさん | Older Brother | medium, hard, chap1, general, hiragana, people
+いもうと | Younger Sister | easy, medium, chap1, general, hiragana, people
+おとうと | Younger Brother | easy, medium, chap1, general, hiragana, people
+これ | This One Here | easy, chap2, hiragana, expression
+それ | That One There | easy, chap2, hiragana, expression
+あれ | That Over There | easy, chap2, hiragana, expression
+どれ | Which One? | easy, chap2, hiragana, expression
+ここ | Right Here | easy, chap2, hiragana, expression
+そこ | Right There | easy, chap2, hiragana, expression
+あそこ | Over There | easy, chap2, hiragana, expression
+どこ | Where? | easy, chap2, hiragana, expression
+だれ | Who? | easy, chap2, hiragana, expression
+おいしい | Delicious | easy, medium chap2, hiragana, adjective, expression
+さかな | Fish | easy, chap2, hiragana, general, food
+とんかつ | Pork Cutlet | easy, medium, chap2, hiragana, general, food
+にく | Meat | easy, chap2, hiragana, general, food
+メニュー | Menu | easy, chap2, katakana, general, food
+やさい | Vegetable | easy, chap2, hiragana, general, food
+コーラ | Cola | easy, hiragana, general, food
+えんぴつ | Pencil | easy, medium, chap2, hiragana, general, object
+かさ | Umbrella | easy, chap2, hiragana, general, object
+かばん | Bag | easy, chap2, hiragana, general, object
+くつ | Shoes | easy, chap2, hiragana, general, object
+さいふ | Wallet | easy, chap2, hiragana, general, object
+ジーンズ | Jeans | easy, chap2, katakana, general, object
+じしょ | Dictionary | easy, chap2, hiragana, general, object
+じてんしゃ | Bicycle | medium, hard, chap2, hiragana, general, object
+しんぶん | Newspaper | easy, medium, chap2, hiragana, general, object
+Tシャツ | T-Shirt | easy, medium, chap2, katakana, general, object
+とけい | Watch / Clock | easy, chap2, hiragana, general, object
+ノート | Notebook | easy, chap2, katakana, general, object
+ペン | Pen | easy, chap2, katakana, general, object
+ぼうし | Hat | easy, chap2, general, hiragana, object
+ほん | Book | easy, chap2, general, hiragana, object
+きっさてん | Cafe |  medium, hard, chap2, location, hiragana
+ぎんこう | Bank | easy, medium, chap2, location, hiragana
+トイレ | Restroom | easy, chap2, katakana, location
+としょかん | Library | medium, hard, chap2, hiragana, location
+ゆうびんきょく | Post Office | hard, chap2, hiragana, location
+いくら | How Much? (Cost-wise)| easy, medium, chap2, hiragana, expression
+えん | Yen | easy, chap2, general, hiragana
+たかい | Expensive / High | chap2, chap5, easy, medium, general, expression, hiragana
+いらっしゃいませ | Welcome | chap2, hard, expression, hiragana
+おねがいします | Please | chap2, hard, expression, hiragana
+じゃあ | Then, ...| easy, chap2, expression, hiragana
+どおぞ | Here You Go | easy, medium, chap2, expression, hiragana
+どうも | Thank You | easy, medium, chap2, expression, hiragana
+えいが | Movie | easy, medium, chap3, general, hiragana
+おんがく | Music | medium, chap3, general, hiragana
+ざっし | Magazine | easy, chap3, general, hiragana
+スポーツ | Sports | medium, katakana, chap3, general
+デート | Date (Romantic) | easy, katakana, general, chap3
+テニス | Tennis | easy, general, chap3, katakana
+テレビ | Television | easy, general, chap3, katakana
+アイスクリーム | Ice Cream | medium, hard, general, chap3, katakana, food
+あさごはん | Breakfast | general, chap3, hiragana, medium, hard, food
+おさけ | Sake / Alcohol | general, chap3, easy, hiragana, food
+おちゃ | Green Tea | general, easy, chap3, hiragana, food
+コーヒー | Coffee | general, easy, medium, chap3, katakana, food
+ばんごはん | Dinner | general, chap3, medium, hard, hiragana, food
+ハンバーガー | Hamburger | general, chap3, katakana, mediun, hard, food
+ひるごはん | Lunch | general, medium, hard, chap3, hiragana, food
+みず | Water | general, easy, chap3, hiragana, food
+うち | Home / House | general, easy, location, hiragana, chap3
+いえ | Home / House | general, easy, location, hiragana, chap3
+あさ | Morning | general, easy, chap3, hiragana, time
+あした | Tomorrow | general, easy, chap3, hiragana, time
+いつ | When | general, easy, chap3, expression, time
+きょう | Today | general, easy, chap3, hiragana, time
+こんばん | Tonight | general, easy, medium, hiragana, chap3, time
+しゅうまつ | Weekend | general, medium, hard, hiragana, chap3, time
+どようび | Saturday | general, medium, easy, hiragana, chap3, time
+にちよび | Sunday | general, medium, easy, hiragana, chap3, time
+まいにち | Every Day | general, medium, hiragana, chap3, time, expression
+まいばん | Every Night | general, medium, hiragana, chap3, time, expression
+いく | To Go | general, easy, hiragana, chap3, verb
+かえる | To Return | general, easy, hiragana, chap3, verb
+きく | To Listen / Ask | general, easy, hiragana, chap3, verb, chap4
+のむ | To Drink | general, easy, hiragana, chap3, verb
+はなす | To Speak | general, easy, hiragana, chap3, verb
+よむ | To Read | general, easy, hiragana, chap3, verb
+おきる | To Wake Up | general, easy, hiragana, chap3, verb
+たべる | To Eat | general, easy, hiragana, chap3, verb
+ねる | To Sleep | general, easy, hiragana, chap3, verb
+みる | To See | general, easy, hiragana, chap3, verb 
+くる | To Come | general, easy, hiragana, chap3, verb 
+する | To Do | general, easy, hiragana, chap3, verb 
+べんきょうする | To Study | general, hard, hiragana, chap3, verb 
+いい | Good | general, easy, hiragana, expression, adjective, chap3, chap5
+はやい | Early | general, easy, hiragana, expression, adjective, chap3, chap5 
+ぜんぜん | Not At All | easy, medium, chap3, expression, hiragana
+あまり | Not Much | easy, chap3, expression, hiragana
+たいてい | Usually | easy, medium, chap3, expression, hiragana
+ちょっと | A Little |  medium, chap3, expression, hiragana
+ときどき | Sometimes | easy, medium, chap3, expression, hiragana
+よく | Often / Much | easy, chap3, expression, hiragana
+そうですね | That's Right | medium, chap3, expression, hiragana
+ども | But | easy, chap3, expression, hiragana
+どうですか | How About...? | medium, chap3, expression, hiragana
+アルイバイト | Part-Time Job | general, hard, katakana, chap4
+かいもの | Shopping | medium, general, hiragana, chap4
+クラス | Class | easy, chap4, katakana, general
+あなた | You | easy, general, hiragana, chap4, expression, people
+いす | Chair | easy, general, hiragana, chap4, object
+いぬ | Dog | easy, general, hiragana, chap4
+おみやげ | Souvenir | medium, general, hiragana, chap4, object
+こども | Child | easy, general, hiragana, chap4, people
+ごはん | Rice / Meal | easy, general, hiragana, chap4, food
+しゃしん | Picture | medium, general, hiragana, chap4, object
+つくえ | Desk | easy, medium, general, object, chap4, hiragana
+たがみ | Letter | easy, medium, general, object, chap4, hiragana
+ねこ | Cat | easy, general, hiragana, chap4
+パン | Bread | easy, general, katakana, chap4, food
+ひと | Person | easy, chap4, general, people, hiragana
+メール | E-Mail | easy, medium, general, chap4, object, katakana
+おてら | Temple | easy, medium, chap4, location, hiragana
+こうえん | Park | easy, medium, chap4, general, location, hiragana
+スーパー | Supermarket | easy, medium, chap4, location, katakana, general
+デパート | Department Store | medium, chap4, location, katakana
+バスてい | Bus Stop | hiragana, katakana, general, location, medium, chap4
+びょういん | Hospital | medium, hard, hiragana, general, location, chap4
+ホテル | Hotel | easy, general, location, chap4, katakana
+ほにゃ | Bookstore | easy, medium, general, location, chap4, hiragana
+まち | Town / City | easy, general, location, chap4, hiragana
+レストラン | Restaurant | medium, hard, general, location, chap4, katakana
+きのう | Yesterday | easy, medium, hiragana, general, expression, time, chap4
+じかん | Hour | easy, medium, hiragana, general, time, chap4
+せんしゅう | Last Week | medium, hard, hiragana, time, chap4
+げつようび | Monday | medium, hard, hiragana, time, chap4
+かようび | Tuesday | medium, hard, hiragana, time, chap4
+すいようび | Wednesday | medium, hard, hiragana, time, chap4
+もくようび | Thursday | medium, hard, hiragana, time, chap4
+きにょうび | Friday | medium, hard, hiragana, time, chap4
+あえ | To Meet | easy, hiragana, verb, chap4
+ある | To Exist (Object) | easy, hiragana, verb, chap4
+かう | To Buy | easy, hiragana, verb, chap4
+かく | To Write | easy, hiragana, verb, chap4
+とる | To Take (A Picture) | easy, hiragana, verb, chap4
+まつ | To Wait | easy, hiragana, verb, chap4
+わかる | To Understand | easy, medium, hiragana, verb, chap4
+いる | To Exist (Something Living) | easy, hiragana, verb, chap4 
+ぐらい | About (Approximately) | easy, hiragana, expression, chap4, time
+ごめんなさい | Sorry | general, hard, hiragana, expression, chap4
+だから | So... | medium, hiragana, expression, chap4
+たくさん | Many / A Lot | medium, general, hiragana, expression, chap4
+どうして | Why? | medium, hiragana, expression, chap4
+ひとりで | Alone | medium, hiragana, expression, people, chap4
+みぎ | Right | easy, hiragana, direction, chap4
+ひだり | Left | easy, hiragana, direction, chap4
+まえ | Front | easy, hiragana, direction, chap4
+うしろ | Back | easy, hiragana, direction, chap4
+なか | Inside | easy, hiragana, direction, chap4
+うえ | On / Above | easy, hiragana, direction, chap4
+した | Under | easy, hiragana, direction, chap4
+ちかく | Nearby | easy, hiragana, direction, chap4
+となり | Next | easy, hiragana, direction, chap4
+あいだ | Between | easy, hiragana, direction, chap4 
+うみ | Sea | easy, hiragana, location, chap5
+きって | Postal Stamps | easy, hiragana, object, chap5 
+きっぷ | Ticket | easy, hiragana, object, chap5 
+サーフィン | Surfing | medium, hard, katakana, chap5, general
+しゅくだい | Homework | medium, hard, hiragana, chap5, object
+たべもの | Food | easy, medium, food, hiragana, chap5
+たんじょうび | Birthday | hard, general, people, hiragana, chap5
+テスト | Test | easy, katakana, chap5, object
+てんき | Weather | easy, hiragana, chap5, general
+のみもの | Beverage / Drink | easy, medium, food, hiragana, chap5, general
+はがき | Postcard | easy, hiragana, object, chap5
+バス | Bus | easy, katakana, object, chap5, general
+ひこうき | Airplane | medium, object, chap5, hiragana, general
+へや | Room | easy, hiragana, chap5, location, general
+ぼく | I (Masculine) | easy, chap5, people, hiragana, general, expression
+やすみ | Holiday / Day Off | easy, medium, general, hiragana, chap5, time
+りょこう | Travel | medium, general, hiragana, chap5

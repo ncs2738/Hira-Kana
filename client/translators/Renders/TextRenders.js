@@ -13,8 +13,8 @@ const TranslationForm = (props) =>
             method="POST"
             className="translationForm"
             >
-                <label htmlFor="name">Name: </label>
-                <textarea id="translationText" type="text" name="translation" placeholder="Translation" rows="1" cols="50" onInput={inputHandler}></textarea>
+                <label htmlFor="name">Enter your message to translate </label>
+                <textarea id="translationText" type="text" name="translation" rows="5" cols="50" onInput={inputHandler}></textarea>
                 <input type="hidden" name="_csrf" value={props.csrf}/>
                 <input className="textTranslationSubmit" type="submit" value="Save Translation"/>
             </form>
@@ -32,12 +32,12 @@ const TranslationForm = (props) =>
             method="POST"
             className="translationForm"
             >
-                <label htmlFor="name">Name: </label>
-                <textarea id="translationText" type="text" name="translation" placeholder="Translation" rows="1" cols="50" onInput={inputHandler}></textarea>
+                <label htmlFor="name">Update your saved translation</label>
+                <textarea id="translationText" type="text" name="translation" placeholder="Translation" rows="5" cols="50" onInput={inputHandler}></textarea>
                 <input type="hidden" name="id" value={removedElem[0]._id}/>
                 <input type="hidden" name="_csrf" value={props.csrf}/>
-                <button type="button" onClick={e => stopUpdating(props.csrf)}>Cancel</button>
                 <input className="textTranslationSubmit" type="submit" value="Update"/>
+                <button type="button" onClick={e => stopUpdating(props.csrf)}>Cancel</button>
             </form>
         );
     }
@@ -53,7 +53,7 @@ const TranslationList = function(props)
         //Return a empty list
         return (
             <div className="translationList">
-                <h3 className="emptyTranslationList">There are no saved translations!</h3>
+                <h3 className="emptyList">There are no saved translations!</h3>
             </div>
         );
     }
@@ -63,10 +63,10 @@ const TranslationList = function(props)
     {
         //Return a new table entry for each saved translation
         return (
-            <div key={translations._id} className="translation">
+            <div key={translations._id} className="savedTranslation">
                 <h3 className="translationText">{translations.translation}</h3>
-                <button onClick={e => deleteMe(translations._id)}>Remove</button>
-                <button onClick={e => loadData(translations.translation, props.translations, translations._id)}>Update</button>
+                <button onClick={e => updateTranslation(translations.translation, props.translations, translations._id)}>Update</button>
+                <button onClick={e => deleteTranslation(translations._id)}>Delete</button>
             </div>
         );
     });

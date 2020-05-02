@@ -6,23 +6,31 @@ var handleTextTranslation = function handleTextTranslation(e) {
   e.preventDefault(); //Check if the user entered anything
 
   if (textbox.value.trim() == "") {
-    console.log("Please enter in text to be translated."); //handleError("All fields are required bro.");
-
+    handleError("Please enter in text to be translated.");
     return false;
-  }
+  } //save the translation
+
 
   saveTranslation("#translationForm");
 };
 
 var handleDate = function handleDate(e) {
   //Keep the page from refreshing
-  e.preventDefault();
+  e.preventDefault(); //save the translation
+
   saveTranslation("#dateForm");
 };
 
 var handleNumber = function handleNumber(e) {
   //Keep the page from refreshing
-  e.preventDefault();
+  e.preventDefault(); //If there was no number entered...
+
+  if ($("#number").val() == "") {
+    handleError("Please enter in a number to be translated.");
+    return false;
+  } //save the translation
+
+
   saveTranslation("#numberForm");
 };
 
@@ -54,7 +62,7 @@ var saveTranslation = function saveTranslation(form) {
 //I plan on writing this to be reusable all throught my translator
 
 
-var deleteMe = function deleteMe(id) {
+var deleteTranslation = function deleteTranslation(id) {
   //Generate a new token
   sendAjax('GET', '/getToken', null, function (result) {
     //Create a object with the specific translation's ID and the new token
@@ -73,7 +81,7 @@ var deleteMe = function deleteMe(id) {
 }; //Function used for getting specifically what value we clicked on to update
 
 
-var loadData = function loadData(translation, list, id) {
+var updateTranslation = function updateTranslation(translation, list, id) {
   //Set the updating state to true
   updating = true; //Variable used to get the next variable we are going to update
   //This is necessary if we are swapping through the stored values
@@ -126,70 +134,62 @@ var resetStates = function resetStates() {
 "use strict";
 
 //HTML setup for the Date Translation form
-//This is not finished; will be updated
+//Used for the original date
 var DateForm = function DateForm(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "dateSearch",
-      name: "dateSearch",
-      onSubmit: getDate,
-      className: "dateSearch"
-    }, /*#__PURE__*/React.createElement("label", {
-      "for": "date"
-    }, "Enter Date:"), /*#__PURE__*/React.createElement("input", {
-      type: "date",
-      id: "dateInput",
-      name: "date"
-    }), /*#__PURE__*/React.createElement("input", {
-      className: "dateSubmit",
-      type: "submit",
-      value: "Get Date"
-    }))
-  );
-};
-/*
-        <form id="dateForm" 
-        name="dateForm"
-        onSubmit={handleDate}
-        action = "/getDate"
-        method="GET"
-        className="dateForm"
-        >
-            <input type="hidden" name="_csrf" value={props.csrf}/>
-            <input className="dateSubmit" type="submit" value="Get Date"/>
-        </form>
-*/
-//Load in the date
+  //Return the date
+  //If we're not updating, show this render
+  if (!updating) {
+    return (/*#__PURE__*/React.createElement("form", {
+        id: "dateSearch",
+        name: "dateSearch",
+        onSubmit: getDate,
+        className: "dateSearch"
+      }, /*#__PURE__*/React.createElement("label", {
+        "for": "date"
+      }, "Search a date to translate"), /*#__PURE__*/React.createElement("input", {
+        type: "date",
+        id: "dateInput",
+        className: "dataInput",
+        name: "date"
+      }), /*#__PURE__*/React.createElement("input", {
+        className: "dateSubmit",
+        type: "submit",
+        value: "Translate Date"
+      }))
+    );
+  } //We are updating, so show this one
+  else {
+      return (/*#__PURE__*/React.createElement("form", {
+          id: "dateSearch",
+          name: "dateSearch",
+          onSubmit: getDate,
+          className: "dateSearch"
+        }, /*#__PURE__*/React.createElement("label", {
+          "for": "date"
+        }, "Re-search a date to update"), /*#__PURE__*/React.createElement("input", {
+          type: "date",
+          id: "dateInput",
+          className: "dataInput",
+          name: "date"
+        }), /*#__PURE__*/React.createElement("input", {
+          className: "dateSubmit",
+          type: "submit",
+          value: "Translate New Date"
+        }))
+      );
+    }
+}; //Load in the date
 
 
 var DateOutput = function DateOutput(props) {
   //The user hasn't searched for the date
   if (props.date.length === 0) {
     //Return a empty list
-    return (/*#__PURE__*/React.createElement("div", {
-        className: "translationList"
-      }, /*#__PURE__*/React.createElement("h3", {
-        className: "emptyTranslationList"
-      }, "Get the date please"))
+    return (/*#__PURE__*/React.createElement("h3", {
+        className: "searchOutput"
+      })
     );
-  } //For future reference
-
-  /*
-  //There are saved translations, so make a map of them
-  const dateNodes = props.date.map(function(date)
-  {
-      //Return a new table entry for each saved translation
-      return (
-          <div key={translations._id} className="todaysDate">
-              <h3 className="dateText">{date.date}</h3>
-              <h3 className="kanjiText">{date.kanji}</h3>
-              <h3 className="readingText">{date.reading}</h3>
-              <h3 className="englishText">{date.english}</h3>
-              <h3 className="translationText">{date.translation}</h3>
-          </div>
-      );
-  });
-  */
-  //Return the date
+  } //Return the date
 
 
   if (!updating) {
@@ -294,16 +294,16 @@ var DateOutput = function DateOutput(props) {
         type: "hidden",
         name: "_csrf",
         value: props.csrf
+      }), /*#__PURE__*/React.createElement("input", {
+        className: "dateSubmit",
+        type: "submit",
+        value: "Update"
       }), /*#__PURE__*/React.createElement("button", {
         type: "button",
         onClick: function onClick(e) {
           return stopUpdating(props.csrf);
         }
-      }, "Cancel"), /*#__PURE__*/React.createElement("input", {
-        className: "dateSubmit",
-        type: "submit",
-        value: "Update Date"
-      })))
+      }, "Cancel")))
     );
   }
 }; //Load in the date
@@ -316,7 +316,7 @@ var DateList = function DateList(props) {
     return (/*#__PURE__*/React.createElement("div", {
         className: "dateList"
       }, /*#__PURE__*/React.createElement("h3", {
-        className: "emptyDateList"
+        className: "emptyList"
       }, "There are no saved dates!"))
     );
   } //There are saved translations, so make a map of them
@@ -326,26 +326,26 @@ var DateList = function DateList(props) {
     //Return a new table entry for each saved translation
     return (/*#__PURE__*/React.createElement("div", {
         key: dates._id,
-        className: "date"
-      }, /*#__PURE__*/React.createElement("h3", {
+        className: "savedTranslation"
+      }, /*#__PURE__*/React.createElement("h4", {
         className: "translationDate"
-      }, dates.date), /*#__PURE__*/React.createElement("h3", {
+      }, dates.date), /*#__PURE__*/React.createElement("h4", {
         className: "translationKanji"
-      }, dates.kanji), /*#__PURE__*/React.createElement("h3", {
+      }, dates.kanji), /*#__PURE__*/React.createElement("h4", {
         className: "translationReading"
-      }, dates.reading), /*#__PURE__*/React.createElement("h3", {
+      }, dates.reading), /*#__PURE__*/React.createElement("h4", {
         className: "translationEnglish"
-      }, dates.english), /*#__PURE__*/React.createElement("h3", {
+      }, dates.english), /*#__PURE__*/React.createElement("h4", {
         className: "translationText"
       }, dates.translation), /*#__PURE__*/React.createElement("button", {
         onClick: function onClick(e) {
-          return deleteMe(dates._id);
+          return updateTranslation(false, props.dates, dates._id);
         }
-      }, "Remove"), /*#__PURE__*/React.createElement("button", {
+      }, "Update"), /*#__PURE__*/React.createElement("button", {
         onClick: function onClick(e) {
-          return loadData(false, props.dates, dates._id);
+          return deleteTranslation(dates._id);
         }
-      }, "Update"))
+      }, "Delete"))
     );
   }); //Return the translations list
 
@@ -356,67 +356,68 @@ var DateList = function DateList(props) {
 };
 "use strict";
 
-//HTML setup for the Date Translation form
-//This is not finished; will be updated
+//HTML setup for the Number Translation form
 var NumberForm = function NumberForm(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "NumberSearch",
-      name: "NumberSearch",
-      onSubmit: getNumber,
-      className: "NumberSearch"
-    }, /*#__PURE__*/React.createElement("label", {
-      "for": "number"
-    }, "Enter Number:"), /*#__PURE__*/React.createElement("input", {
-      type: "number",
-      id: "numberInput",
-      name: "number",
-      max: "99999"
-    }), /*#__PURE__*/React.createElement("input", {
-      className: "numberSubmit",
-      type: "submit",
-      value: "Get Number"
-    }))
-  );
-}; //Load in the date
+  //If we're not updating, show this render
+  if (!updating) {
+    return (/*#__PURE__*/React.createElement("form", {
+        id: "numberSearch",
+        name: "numberSearch",
+        onSubmit: getNumber,
+        className: "numberSearch"
+      }, /*#__PURE__*/React.createElement("label", {
+        "for": "number"
+      }, "Enter a number to translate"), /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        id: "numberInput",
+        className: "dataInput",
+        maxlength: "5"
+      }), /*#__PURE__*/React.createElement("input", {
+        className: "numberSubmit",
+        type: "submit",
+        value: "Translate Number"
+      }))
+    );
+  } //We are updating, so show this one
+  else {
+      return (/*#__PURE__*/React.createElement("form", {
+          id: "numberSearch",
+          name: "numberSearch",
+          onSubmit: getNumber,
+          className: "numberSearch"
+        }, /*#__PURE__*/React.createElement("label", {
+          "for": "number"
+        }, "Re-search a number to update"), /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          id: "numberInput",
+          className: "dataInput",
+          maxlength: "5"
+        }), /*#__PURE__*/React.createElement("input", {
+          className: "numberSubmit",
+          type: "submit",
+          value: "Translate New Number"
+        }))
+      );
+    }
+}; //Load in the number
 
 
 var NumberOutput = function NumberOutput(props) {
-  console.log(props); //The user hasn't searched for a number yet
-
+  //The user hasn't searched for a number yet
   if (props.number.length === 0) {
     //Return a empty list
-    return (/*#__PURE__*/React.createElement("div", {
-        className: "translationList"
-      }, /*#__PURE__*/React.createElement("h3", {
-        className: "emptyTranslationList"
-      }, "Get the number please"))
+    return (/*#__PURE__*/React.createElement("h3", {
+        className: "searchOutput"
+      })
     );
-  } //For future reference
-
-  /*
-  //There are saved translations, so make a map of them
-  const dateNodes = props.date.map(function(date)
-  {
-      //Return a new table entry for each saved translation
-      return (
-          <div key={translations._id} className="todaysDate">
-              <h3 className="dateText">{date.date}</h3>
-              <h3 className="kanjiText">{date.kanji}</h3>
-              <h3 className="readingText">{date.reading}</h3>
-              <h3 className="englishText">{date.english}</h3>
-              <h3 className="translationText">{date.translation}</h3>
-          </div>
-      );
-  });
-  */
-  //Return the date
+  } //Return the number
 
 
   if (!updating) {
     return (/*#__PURE__*/React.createElement("div", {
-        className: "numberOutput"
+        className: "translations"
       }, /*#__PURE__*/React.createElement("div", {
-        className: "searchedNumber"
+        className: "translation"
       }, /*#__PURE__*/React.createElement("h3", {
         className: "numberSearched"
       }, props.number.number), /*#__PURE__*/React.createElement("h3", {
@@ -460,9 +461,9 @@ var NumberOutput = function NumberOutput(props) {
     );
   } else {
     return (/*#__PURE__*/React.createElement("div", {
-        className: "numberOutput"
+        className: "translations"
       }, /*#__PURE__*/React.createElement("div", {
-        className: "searchedNumber"
+        className: "translation"
       }, /*#__PURE__*/React.createElement("h3", {
         className: "numberSearched"
       }, props.number.number), /*#__PURE__*/React.createElement("h3", {
@@ -502,16 +503,16 @@ var NumberOutput = function NumberOutput(props) {
         type: "hidden",
         name: "_csrf",
         value: props.csrf
+      }), /*#__PURE__*/React.createElement("input", {
+        className: "numberSubmit",
+        type: "submit",
+        value: "Update"
       }), /*#__PURE__*/React.createElement("button", {
         type: "button",
         onClick: function onClick(e) {
           return stopUpdating(props.csrf);
         }
-      }, "Cancel"), /*#__PURE__*/React.createElement("input", {
-        className: "numberSubmit",
-        type: "submit",
-        value: "Save Number"
-      })))
+      }, "Cancel")))
     );
   }
 }; //Load in the date
@@ -524,35 +525,34 @@ var NumberList = function NumberList(props) {
     return (/*#__PURE__*/React.createElement("div", {
         className: "numberList"
       }, /*#__PURE__*/React.createElement("h3", {
-        className: "emptyNumberList"
+        className: "emptyList"
       }, "There are no saved numbers!"))
     );
-  }
+  } //There are saved translations, so make a map of them
 
-  console.log(props.numbers); //There are saved translations, so make a map of them
 
   var numberNodes = props.numbers.map(function (numbers) {
     //Return a new table entry for each saved translation
     return (/*#__PURE__*/React.createElement("div", {
         key: numbers._id,
-        className: "translatedNumber"
-      }, /*#__PURE__*/React.createElement("h3", {
+        className: "savedTranslation"
+      }, /*#__PURE__*/React.createElement("h4", {
         className: "numberSearched"
-      }, numbers.number), /*#__PURE__*/React.createElement("h3", {
+      }, numbers.number), /*#__PURE__*/React.createElement("h4", {
         className: "numberKanji"
-      }, numbers.kanji), /*#__PURE__*/React.createElement("h3", {
+      }, numbers.kanji), /*#__PURE__*/React.createElement("h4", {
         className: "numberText"
-      }, numbers.reading), /*#__PURE__*/React.createElement("h3", {
+      }, numbers.reading), /*#__PURE__*/React.createElement("h4", {
         className: "englishText"
       }, numbers.english), /*#__PURE__*/React.createElement("button", {
         onClick: function onClick(e) {
-          return deleteMe(numbers._id);
+          return updateTranslation(false, props.numbers, numbers._id);
         }
-      }, "Remove"), /*#__PURE__*/React.createElement("button", {
+      }, "Update"), /*#__PURE__*/React.createElement("button", {
         onClick: function onClick(e) {
-          return loadData(false, props.numbers, numbers._id);
+          return deleteTranslation(numbers._id);
         }
-      }, "Update"))
+      }, "Delete"))
     );
   }); //Return the translations list
 
@@ -577,12 +577,11 @@ var TranslationForm = function TranslationForm(props) {
         className: "translationForm"
       }, /*#__PURE__*/React.createElement("label", {
         htmlFor: "name"
-      }, "Name: "), /*#__PURE__*/React.createElement("textarea", {
+      }, "Enter your message to translate "), /*#__PURE__*/React.createElement("textarea", {
         id: "translationText",
         type: "text",
         name: "translation",
-        placeholder: "Translation",
-        rows: "1",
+        rows: "5",
         cols: "50",
         onInput: inputHandler
       }), /*#__PURE__*/React.createElement("input", {
@@ -607,12 +606,12 @@ var TranslationForm = function TranslationForm(props) {
           className: "translationForm"
         }, /*#__PURE__*/React.createElement("label", {
           htmlFor: "name"
-        }, "Name: "), /*#__PURE__*/React.createElement("textarea", {
+        }, "Update your saved translation"), /*#__PURE__*/React.createElement("textarea", {
           id: "translationText",
           type: "text",
           name: "translation",
           placeholder: "Translation",
-          rows: "1",
+          rows: "5",
           cols: "50",
           onInput: inputHandler
         }), /*#__PURE__*/React.createElement("input", {
@@ -623,16 +622,16 @@ var TranslationForm = function TranslationForm(props) {
           type: "hidden",
           name: "_csrf",
           value: props.csrf
+        }), /*#__PURE__*/React.createElement("input", {
+          className: "textTranslationSubmit",
+          type: "submit",
+          value: "Update"
         }), /*#__PURE__*/React.createElement("button", {
           type: "button",
           onClick: function onClick(e) {
             return stopUpdating(props.csrf);
           }
-        }, "Cancel"), /*#__PURE__*/React.createElement("input", {
-          className: "textTranslationSubmit",
-          type: "submit",
-          value: "Update"
-        }))
+        }, "Cancel"))
       );
     }
 }; //Load in the previously saved translations
@@ -645,7 +644,7 @@ var TranslationList = function TranslationList(props) {
     return (/*#__PURE__*/React.createElement("div", {
         className: "translationList"
       }, /*#__PURE__*/React.createElement("h3", {
-        className: "emptyTranslationList"
+        className: "emptyList"
       }, "There are no saved translations!"))
     );
   } //There are saved translations, so make a map of them
@@ -655,98 +654,24 @@ var TranslationList = function TranslationList(props) {
     //Return a new table entry for each saved translation
     return (/*#__PURE__*/React.createElement("div", {
         key: translations._id,
-        className: "translation"
+        className: "savedTranslation"
       }, /*#__PURE__*/React.createElement("h3", {
         className: "translationText"
       }, translations.translation), /*#__PURE__*/React.createElement("button", {
         onClick: function onClick(e) {
-          return deleteMe(translations._id);
+          return updateTranslation(translations.translation, props.translations, translations._id);
         }
-      }, "Remove"), /*#__PURE__*/React.createElement("button", {
+      }, "Update"), /*#__PURE__*/React.createElement("button", {
         onClick: function onClick(e) {
-          return loadData(translations.translation, props.translations, translations._id);
+          return deleteTranslation(translations._id);
         }
-      }, "Update"))
+      }, "Delete"))
     );
   }); //Return the translations list
 
   return (/*#__PURE__*/React.createElement("div", {
       className: "translationList"
     }, translationNodes)
-  );
-};
-"use strict";
-
-//HTML setup for the Date Translation form
-//This is not finished; will be updated
-var TimeForm = function TimeForm(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "TimeSearch",
-      name: "TimeSearch",
-      onSubmit: getTime,
-      className: "TimeSearch"
-    }, /*#__PURE__*/React.createElement("label", {
-      "for": "time"
-    }, "Search a time"), /*#__PURE__*/React.createElement("input", {
-      type: "time",
-      id: "time",
-      name: "time",
-      required: true
-    }), /*#__PURE__*/React.createElement("input", {
-      className: "timeSubmit",
-      type: "submit",
-      value: "Get Time"
-    }))
-  );
-}; //Load in the date
-
-
-var TimeList = function TimeList(props) {
-  console.log(props); //The user hasn't searched for the date
-
-  if (props.time.length === 0) {
-    //Return a empty list
-    return (/*#__PURE__*/React.createElement("div", {
-        className: "translationList"
-      }, /*#__PURE__*/React.createElement("h3", {
-        className: "emptyTranslationList"
-      }, "Get the time please"))
-    );
-  } //For future reference
-
-  /*
-  //There are saved translations, so make a map of them
-  const dateNodes = props.date.map(function(date)
-  {
-      //Return a new table entry for each saved translation
-      return (
-          <div key={translations._id} className="todaysDate">
-              <h3 className="dateText">{date.date}</h3>
-              <h3 className="kanjiText">{date.kanji}</h3>
-              <h3 className="readingText">{date.reading}</h3>
-              <h3 className="englishText">{date.english}</h3>
-              <h3 className="translationText">{date.translation}</h3>
-          </div>
-      );
-  });
-  */
-  //Return the date
-
-
-  return (/*#__PURE__*/React.createElement("div", {
-      className: "NumberList"
-    }, /*#__PURE__*/React.createElement("div", {
-      key: translations._id,
-      className: "translatedNumber"
-    }, /*#__PURE__*/React.createElement("h3", {
-      className: "numberSearched"
-    }, props.number.num), /*#__PURE__*/React.createElement("h3", {
-      className: "numberKanji"
-    }, props.number.kanji), /*#__PURE__*/React.createElement("h3", {
-      className: "numberText"
-    }, props.number.reading), /*#__PURE__*/React.createElement("h3", {
-      className: "englishText"
-    }, props.number.english)))
   );
 };
 "use strict";
@@ -763,9 +688,6 @@ var savedData = document.querySelector("#savedTranslations"); //Setup the page b
 var setup = function setup(csrf) {
   document.querySelector("#dateButton").addEventListener("click", function (e) {
     setListener(e, csrf, "Date");
-  });
-  document.querySelector("#timeButton").addEventListener("click", function (e) {
-    setListener(e, csrf, "Text");
   });
   document.querySelector("#numberButton").addEventListener("click", function (e) {
     setListener(e, csrf, "Number");
@@ -833,7 +755,9 @@ var createWindow = function createWindow(csrf) {
         }), output);
         ReactDOM.render( /*#__PURE__*/React.createElement(NumberList, {
           numbers: updateList
-        }), savedData);
+        }), savedData); //Set the textbox to the number box
+
+        textbox = document.querySelector("#numberInput");
         break;
       } //Default to the text box
 
@@ -862,6 +786,8 @@ var createWindow = function createWindow(csrf) {
     //Load the data into the list
     loadFromServer();
   }
+
+  clearError();
 }; //Refresh the page and show all the translations
 
 
@@ -909,19 +835,18 @@ $(document).ready(function () {
 });
 "use strict";
 
-//Show our domo friend if there's an error
+//Update the error message in the DOM
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({
-    width: 'toggle'
-  }, 350);
-}; //Hide the domo-friend when they're not needed
+}; //Clear the error message in the DOM
+
+
+var clearError = function clearError() {
+  $("#errorMessage").text("");
+}; //Redirect us to a new page
 
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({
-    width: 'hide'
-  }, 350);
   window.location = response.redirect;
 }; //Send AJAX info between our scripts
 
@@ -1340,7 +1265,11 @@ var setNumberJSON = function setNumberJSON(jsonDictionary) {
   dates = jsonDictionary.dates;
   numerics = jsonDictionary.numerics; //Get today's current date
 
-  today = new Date();
+  today = new Date(); //Get the time-zone offset
+
+  var offset = today.getTimezoneOffset() / 60; //Set the offset
+
+  today.setHours(today.getHours() + offset);
 };
 
 var getDate = function getDate(e) {
@@ -1379,21 +1308,35 @@ var getDate = function getDate(e) {
 
 
 var getNumber = function getNumber(e) {
-  e.preventDefault();
-  var input = document.querySelector("#numberInput").value; // Create the json object
+  e.preventDefault(); //get the number value
+
+  var input = document.querySelector("#numberInput").value; //Check if there's no input
+
+  if (input == "") {
+    //There was, so return false
+    handleError("Please enter in a number to be translated."); //Send the nothing to be displayed
+
+    loadNumber([]);
+    return false;
+  } //Check if a letter was entered
+  else if (isNaN(input)) {
+      // Letters were entered
+      handleError("No text is allowed."); //Send the nothing to be displayed
+
+      loadNumber([]);
+      return false;
+    } else {
+      //A valid number was entered
+      clearError();
+    } // Create the json object
+
 
   var data = {}; // Create a counter
 
   var counter = {
     counter: 0
   }; // Check if the input's actually valid or not
-
-  if (Number.isNaN(input)) {
-    // Letters were entered
-    console.log("AAAA");
-    return false;
-  } // translate the string back into a number, and get it's length
-
+  // translate the string back into a number, and get it's length
 
   var numString = input.toString();
   var length = numString.length;
@@ -1467,9 +1410,13 @@ var getNumber = function getNumber(e) {
 
 
     counter.counter++;
-  }
+  } //Send the number to be displayed
 
-  console.log(data);
+
+  loadNumber(data);
+};
+
+var loadNumber = function loadNumber(data) {
   sendAjax('GET', '/getToken', null, function (result) {
     ReactDOM.render( /*#__PURE__*/React.createElement(NumberOutput, {
       number: data,
@@ -1493,103 +1440,4 @@ var appendNumbers = function appendNumbers(num, array, response, isPower) {
     response.reading = "".concat(number.reading, " ").concat(response.reading);
     response.english = "".concat(number.english, " ").concat(response.english);
   }
-}; //const getTime = (e) =>
-//{
-
-/*
-//Takes the time inputs and finds if they are AM or PM
-      //Also turns the times from strings into numbers                  
-      getTime(time) {
-        const [strHour, strMin] = time.split(':');
-        hour = parseInt(strHour, 10);
-        min = parseInt(strMin, 10);
-        const midday = this.getMidday(hour);
-        if (hour == 0) hour = 12;
-        const scheduleTime = (hour * 100) + min;
-        if (hour >= 13) hour -= 12;
-          return [hour, min, midday, strHour, strMin, scheduleTime];
-      },
-    
-      //Used for checking if the time is past or before midday
-      getMidday(hour) {
-        if (hour >= 12) {
-          return 'PM';
-        }
-          return 'AM';
-      },
-    */
-
-/*
-          //Add schedule does not post the schedule, but rather creates a entry in the schedule
-        addSchedule() {
-          // Check if the time fields have input
-          if (this.timeX && this.timeY && this.message) {
-              //They do, so grab them, and get their values
-            const timeA = this.getTime(this.timeX);
-            const timeB = this.getTime(this.timeY);
-      
-            //timeA is the starting time, and timeB is the ending
-            const startTime = timeA[5];
-            const endTime = timeB[5];
-            //Flag to see if the new schedule's time was valid
-            let valid = true;
-      
-            //Check to see if the schedule exists (For safety)
-            if (this.schedule) {
-                //Check to see if the times actually are coherent; you can't have a schedule that starts at a later time than when it ends
-              if (startTime >= endTime) {
-                this.status = 'Invalid time entererd!';
-                valid = false;
-              }
-      
-              //Loop through the schedule and check the times; if one overlaps, it's invalid. Can't do 2 things at once.
-              for (let i = 0; i < this.schedule.length; i++) {
-                if (this.schedule[i].startTime <= startTime && this.schedule[i].endTime >= endTime) {
-                  this.status = 'That time slot is already taken!';
-                  valid = false;
-                } else {
-                  this.status = '';
-                }
-              }
-      
-              //There's no invalid entries; create a new entry
-              if (valid) {
-                const entry = {
-                  startTime,
-                  endTime,
-                  time: `${timeA[0]}:${timeA[4]} ${timeA[2]} - ${timeB[0]}:${timeB[4]} ${timeB[2]}`,
-                  entry: this.message,
-                };
-      
-                //Push it onto the schedule, and sort it
-                this.schedule.push(entry);
-                this.schedule.sort((a, b) => a.startTime - b.startTime);
-              }
-            }
-          }
-        },
-      
-        //Get the user's previous schedule
-        getSchedule() {
-          const formData = `/getSchedule?username=${this.username}`;
-          this.sendAjax(formData, 0, false);
-          this.status = "Finding your Schedule..."
-        },
-      
-        //Post your current schedule to the server and save it.
-        postSchedule() {
-          if(this.schedule.length > 0)
-          {
-            const jsonSchedule = JSON.stringify(this.schedule);
-          const formData = `username=${this.username}&schedule=${jsonSchedule}`;
-          this.sendPost('/addSchedule', formData, 0, false);
-          this.status = "Saving your Schedule..."
-          }
-          else
-          {
-            this.status = "Please fill out your schedule before posting it!"
-          }
-        },
-      
-       
-*/
+};

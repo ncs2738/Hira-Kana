@@ -36,7 +36,7 @@ const saveTextTranslation = (req, res) => {
     }
 
     // There's a error, so return the problem
-    return res.status(400).json({ error: 'An error occured; Sorry.' });
+    return res.status(400).json({ error: 'An error occured. Our apologies' });
   });
 
   return translationPromise;
@@ -48,7 +48,7 @@ const updateTextTranslation = (req, res) => {
     // A error occured
     if (err) {
       console.log(err);
-      return res.status(400).json({ err: 'An error occurred. Sorry about that.' });
+      return res.status(400).json({ err: 'An error occurred. Our apologies.' });
     }
 
     // The app loaded right; reload the app again, and get a new token
@@ -63,11 +63,10 @@ const deleteTextTranslation = (req, res) => {
     // Failed in deleting right
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'Error in deleting. Sorry bud.' });
+      return res.status(400).json({ error: 'Error in deleting. Our apologies.' });
     }
 
     // Deleted properly.
-    console.log('Succesfully deleted!');
     return res.json({ translations: docs });
   });
 };
@@ -82,7 +81,7 @@ const getTextTranslations = (request, response) => {
     // An error occurred
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'An error occurred. Sorry bud.' });
+      return res.status(400).json({ error: 'An error occurred. Our apologies.' });
     }
 
     // Return the translations
@@ -98,7 +97,7 @@ const translationsPage = (req, res) => {
     // A error occured
     if (err) {
       console.log(err);
-      return res.status(400).json({ err: 'An error occurred. Sorry about that.' });
+      return res.status(400).json({ err: 'An error occurred. Our apologies.' });
     }
 
     // The app loaded right; reload the app again, and get a new token

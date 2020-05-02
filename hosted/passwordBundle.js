@@ -1,40 +1,6 @@
 "use strict";
 
-//Handle our login event
-var handleAccount = function handleAccount(e) {
-  //Keep the page from refreshing after sending the form
-  e.preventDefault();
-  fieldCheck();
-};
-
-var fieldCheck = function fieldCheck() {
-  if ($("#curPass").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-    //handleError("Your username or password's empty bro.");
-    var errorMessage = "All fields are required dude.";
-    console.log(errorMessage);
-    return false;
-  } //Check if the passwords are equivalent
-
-
-  if ($("#pass").val() !== $("#pass2").val()) {
-    handleError("The passwords don't match bro.");
-    return false;
-  } //Check if the old and new password match
-
-
-  if ($("#curpass").val() === $("#pass").val()) {
-    handleError("Please enter a actually new password.");
-    return false;
-  } //Send the AJAX call with the login form's data
-
-
-  sendAjax('POST', $("#passwordForm").attr("action"), $("#passwordForm").serialize(), function (result) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(UpdateWindow, null), document.querySelector("#content"));
-  });
-  return false;
-}; //HTML setup for the sign-up form
-
-
+//HTML setup for the sign-up form
 var PasswordWindow = function PasswordWindow(props) {
   return (/*#__PURE__*/React.createElement("form", {
       id: "passwordForm",
@@ -78,11 +44,43 @@ var PasswordWindow = function PasswordWindow(props) {
 
 
 var UpdateWindow = function UpdateWindow() {
-  console.log("I AM CALLED!");
   return (/*#__PURE__*/React.createElement("div", {
-      className: "welcome"
+      className: "updateDisplay"
     }, /*#__PURE__*/React.createElement("h1", null, "Your password has been updated!"))
   );
+};
+"use strict";
+
+//Handle our login event
+var handleAccount = function handleAccount(e) {
+  //Keep the page from refreshing after sending the form
+  e.preventDefault(); //Check if all fields have been entered
+
+  if ($("#curPass").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
+    handleError("All fields are required.");
+    return false;
+  } //Check if the passwords are equivalent
+
+
+  if ($("#pass").val() !== $("#pass2").val()) {
+    handleError("Your new passwords don't match.");
+    return false;
+  } //Check if the old and new password match
+
+
+  if ($("#curpass").val() === $("#pass").val()) {
+    handleError("Your old password and new passwords match. Please enter a new password.");
+    return false;
+  } //Send the AJAX call with the login form's data
+
+
+  sendAjax('POST', $("#passwordForm").attr("action"), $("#passwordForm").serialize(), function (res) {
+    //get rid of any errors
+    clearError(); //Update the Dom showing that their password has updated
+
+    ReactDOM.render( /*#__PURE__*/React.createElement(UpdateWindow, null), document.querySelector("#content"));
+  });
+  return false;
 }; //Used for generating new CRSF tokens;
 //Always called whenever we make a data-call
 
@@ -102,19 +100,18 @@ $(document).ready(function () {
 });
 "use strict";
 
-//Show our domo friend if there's an error
+//Update the error message in the DOM
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({
-    width: 'toggle'
-  }, 350);
-}; //Hide the domo-friend when they're not needed
+}; //Clear the error message in the DOM
+
+
+var clearError = function clearError() {
+  $("#errorMessage").text("");
+}; //Redirect us to a new page
 
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({
-    width: 'hide'
-  }, 350);
   window.location = response.redirect;
 }; //Send AJAX info between our scripts
 

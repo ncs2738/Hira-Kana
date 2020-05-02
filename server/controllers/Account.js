@@ -34,13 +34,13 @@ const login = (request, response) => {
 
   // Check if the user entered both the password and username
   if (!username || !password) {
-    return res.status(400).json({ error: 'All fields are required, yo. Try again.' });
+    return res.status(400).json({ error: 'All fields are required.' });
   }
 
   // Check if the password and usernames match
   return Account.AccountModel.authenticate(username, password, (err, account) => {
     if (err || !account) {
-      return res.status(401).json({ error: 'Wrong username or password. Try again dude.' });
+      return res.status(401).json({ error: 'Wrong username or password.' });
     }
 
     // Set the account's info in the app.session data
@@ -63,12 +63,12 @@ const signup = (request, response) => {
 
   // Check if the user entered a username and 2 passwords
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'All fields are required, yo. Try again.' });
+    return res.status(400).json({ error: 'All fields are required.' });
   }
 
   // Check if the passwords match
   if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({ error: 'The passwords failed to match dude. Try again.' });
+    return res.status(400).json({ error: 'Your passwords failed to match.' });
   }
 
   // Set up new security info for the new account
@@ -96,15 +96,13 @@ const signup = (request, response) => {
 
     // Check for errors
     savePromise.catch((err) => {
-      console.log(err);
-
       // Already logged in
       if (err.code === 11000) {
-        return res.status(400).json({ error: 'Username already in use.' });
+        return res.status(400).json({ error: 'That username is already in use. Please choose another.' });
       }
 
       // There's a error, so return the problem
-      return res.status(400).json({ error: 'An error occurred' });
+      return res.status(400).json({ error: 'An error occurred. Our apologies.' });
     });
   });
 };
@@ -122,7 +120,7 @@ const updatePassword = (request, response) => {
 
   // Check if the user entered a username and 2 passwords
   if (!req.body.curPassword || !req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'All fields are required, yo. Try again.' });
+    return res.status(400).json({ error: 'All fields are required.' });
   }
 
   // Check if they aren't just entering the same password in
@@ -132,7 +130,7 @@ const updatePassword = (request, response) => {
 
   // Check if the new passwords match
   if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({ error: 'The passwords failed to match dude. Try again.' });
+    return res.status(400).json({ error: 'Your passwords failed to match.' });
   }
 
   // Add the current owner to the body
@@ -143,22 +141,20 @@ const updatePassword = (request, response) => {
     // A error occured
     if (err) {
       console.log(err);
-      return res.status(400).json({ err: 'An error occurred. Sorry about that.' });
+      return res.status(400).json({ err: 'An error occurred. Our apologies.' });
     }
 
     // The password updated right, return successfully
-    // Finish authenticate
-    // return res.status(204).json({ message: 'Your password has been updated!' });
-    //
+    // Need a return statement here, so I just essentially return nothing.
     return 'success';
   });
 
-  return res.json({ message: 'success' });
+  // return with a successfull 204 message
+  return res.status(204).json({ message: 'Your password has been updated!' });
 };
 
-// Load the game page
+// Load the password update page
 const passwordPage = (req, res) => {
-  // The app loaded right; reload the app again, and get a new token
   res.render('updatePassword');
 };
 

@@ -4,11 +4,11 @@ const models = require('../models');
 // Set up the Translation models
 const { NumberTranslation } = models;
 
-// Used for saving a new translation
+// Used for saving a new number translation
 const saveNumberTranslation = (req, res) => {
   // Make sure all fields are there
   if (!req.body) {
-    return res.status(400).json({ error: 'Please enter a translation to be saved!' });
+    return res.status(400).json({ error: 'Please enter a number to be saved!' });
   }
 
   // Set an object to the variables + the owner's id
@@ -40,7 +40,7 @@ const saveNumberTranslation = (req, res) => {
     }
 
     // There's a error, so return the problem
-    return res.status(400).json({ error: 'An error occured; Sorry.' });
+    return res.status(400).json({ error: 'An error occured. Our apologies' });
   });
 
   return translationPromise;
@@ -52,7 +52,7 @@ const updateNumberTranslation = (req, res) => {
     // A error occured
     if (err) {
       console.log(err);
-      return res.status(400).json({ err: 'An error occurred. Sorry about that.' });
+      return res.status(400).json({ err: 'An error occurred. Our apologies.' });
     }
 
     // The app loaded right; reload the app again, and get a new token
@@ -60,23 +60,22 @@ const updateNumberTranslation = (req, res) => {
   });
 };
 
-// used for deleting the user's translations
+// used for deleting the user's number translations
 const deleteNumberTranslation = (req, res) => {
-  // Send the translation-id, and check for errors
+  // Send the number translation's-id, and check for errors
   NumberTranslation.NumberTranslationModel.deleteTranslation(req.body.id, (err, docs) => {
     // Failed in deleting right
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'Error in deleting. Sorry bud.' });
+      return res.status(400).json({ error: 'Error in deleting. Our apologies.' });
     }
 
     // Deleted properly.
-    console.log('Succesfully deleted!');
     return res.json({ numbers: docs });
   });
 };
 
-// Get all of the user's translations
+// Get all of the user's number translations
 const getNumberTranslations = (request, response) => {
   const req = request;
   const res = response;
@@ -87,10 +86,10 @@ const getNumberTranslations = (request, response) => {
     // An error occurred
       if (err) {
         console.log(err);
-        return res.status(400).json({ error: 'An error occurred. Sorry bud.' });
+        return res.status(400).json({ error: 'An error occurred. Our apologies.' });
       }
 
-      // Return the translations
+      // Return the number translations
       return res.json({ numbers: docs });
     });
 };

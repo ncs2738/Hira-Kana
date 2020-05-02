@@ -1,0 +1,247 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(65, 71, 77);
+    margin-bottom: 2vh;
+}
+
+.appLinks
+{
+    background-color:rgb(121, 130, 138);
+    margin-top: -2vh;
+    margin-bottom: 2vh;
+}
+
+nav:nth-child(1) {
+    padding-left: 25px;
+}
+
+.navlink {
+    padding: 5px;
+    padding-top: 12px;
+    padding-left: 20px;
+    color: white;
+    font-size: 1.3em;
+    float: left;
+    font-family: 'Jua', sans-serif;
+}
+
+.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: rgb(65, 71, 77);
+    transition: background-color 0.4s ease;
+}
+
+.appLinks a,  .appLinks a:link, .appLinks a:visited, .appLinks a:hover, .appLinks a:active {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: rgb(121, 130, 138);
+    transition: background-color 0.4s ease;
+}
+
+.navlink a:hover {
+    transition: background-color 0.8s ease;
+    background-color:rgb(163, 163, 163);
+}
+
+.appLinks a:hover {
+    transition: background-color 0.8s ease;
+    background-color: rgb(165, 166, 167);
+}
+
+
+.mainForm{
+    margin-top: 27vh;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+}
+
+.mainForm label{
+    font-family: 'Jua', sans-serif;
+    font-size: 24px;
+}
+
+.welcome
+{
+    width: 850px;
+    margin: 0 auto;
+    padding-top: 200px;
+    font-size: 1.2em;
+}
+
+#user, #pass, #pass2, #curPass{
+    text-align: center;
+    font-size: 1.1em;
+    width: 180px;
+    border-radius: 6px;
+}
+
+.translatedNumber
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+}
+
+#translators
+{
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+
+    max-width: 85%;
+}
+
+#searchedData
+{
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2.5vh;
+}
+
+#savedData
+{
+    background:rgb(65, 71, 77);
+    border: 15px black double;
+    border-radius: 15px;
+    padding-left: 7px;
+    padding-right: 7px;
+    max-width: 100%;
+
+    overflow-x: hidden; 
+    overflow-x: auto; 
+
+    max-height: 65vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7.5vh;
+}
+
+#numberSearch, #dateSearch, #translationForm, 
+.numberForm, .dateForm, .updateDisplay,
+.translation, .savedTranslation,
+.textDisplay, #errorMessage
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Jua', sans-serif;
+}
+
+.updateDisplay
+{
+    margin-top: 40vh;
+}
+
+.textDisplay
+{
+    margin-top: 20vh;
+}
+
+.savedTranslation
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border: 3px black;
+    border-style: outset;
+    border-radius: 5px;
+
+    background-color: rgb(187, 187, 187);
+    padding: 5px;
+    width: 100%;
+}
+
+.emptyList
+{
+    color: white;
+}
+
+h3
+{
+    font-family: 'Kosugi Maru', sans-serif;
+}
+
+button, input[type=submit]
+{
+    background:rgb(93, 93, 94);
+    border: 3px rgb(28, 28, 28) solid;
+    border-radius: 10px;
+    color:rgb(252, 252, 252);
+    font-size: 18px;
+    font-family: 'Jua', sans-serif;
+}
+
+button
+{
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+}
+
+input
+{
+    margin-top: 10px;
+}
+
+
+#translationText, .dataInput 
+{
+    font-size: 24px;
+    font-family: 'Kosugi Maru', sans-serif;
+    border: 3px rgb(28, 28, 28) solid;
+    border-radius: 10px;
+}
+
+#dateInput, #numberInput
+{
+    text-align: center;
+}
+
+label, #errorMessage
+{
+    font-size: 28px; 
+}
+
+.textDisplay
+{
+    font-size: 24px;
+}

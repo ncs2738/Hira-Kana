@@ -12,7 +12,6 @@ let savedData = document.querySelector("#savedTranslations");
 const setup = (csrf) =>
 {
     document.querySelector("#dateButton").addEventListener("click", (e) => {setListener(e, csrf, "Date");});
-    document.querySelector("#timeButton").addEventListener("click", (e) => {setListener(e, csrf, "Text");});
     document.querySelector("#numberButton").addEventListener("click", (e) => {setListener(e, csrf, "Number");});
     document.querySelector("#textButton").addEventListener("click", (e) => {setListener(e, csrf, "Text");});
 
@@ -87,6 +86,9 @@ const createWindow = (csrf, updateList = [], updateOutput = []) =>
                 ReactDOM.render(
                     <NumberList numbers = {updateList} />, savedData
                 );
+
+               //Set the textbox to the number box
+                textbox  = document.querySelector("#numberInput");
     
                 break;
             }
@@ -122,6 +124,8 @@ const createWindow = (csrf, updateList = [], updateOutput = []) =>
     //Load the data into the list
     loadFromServer();
     }
+
+    clearError();
 };
 
 

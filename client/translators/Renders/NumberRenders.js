@@ -1,60 +1,56 @@
-//HTML setup for the Date Translation form
-//This is not finished; will be updated
+//HTML setup for the Number Translation form
 const NumberForm = (props) =>
 {
+    //If we're not updating, show this render
+    if(!updating)
+    {
     return(
-        <form id="NumberSearch" 
-        name="NumberSearch"
+        <form id="numberSearch" 
+        name="numberSearch"
         onSubmit={getNumber}
-        className="NumberSearch"
+        className="numberSearch"
         >
-            <label for="number">Enter Number:</label>
-            <input type="number" id="numberInput" name="number" max="99999"/>
-            <input className="numberSubmit" type="submit" value="Get Number"/>
+            <label for="number">Enter a number to translate</label>
+            <input type="text" id="numberInput" className="dataInput" maxlength="5"/>
+            <input className="numberSubmit" type="submit" value="Translate Number"/>
         </form>
     );
+    }
+    //We are updating, so show this one
+    else
+    {
+        return(
+            <form id="numberSearch" 
+            name="numberSearch"
+            onSubmit={getNumber}
+            className="numberSearch"
+            >
+                <label for="number">Re-search a number to update</label>
+                <input type="text" id="numberInput" className="dataInput" maxlength="5"/>
+                <input className="numberSubmit" type="submit" value="Translate New Number"/>
+            </form>
+        );
+    }
 };
 
-
-
-//Load in the date
+//Load in the number
 const NumberOutput = function(props) 
 {
-    console.log(props);
      //The user hasn't searched for a number yet
      if(props.number.length === 0)
      {
          //Return a empty list
          return (
-             <div className="translationList">
-                 <h3 className="emptyTranslationList">Get the number please</h3>
-             </div>
-         );
+            <h3 className="searchOutput"></h3>
+        );
      }
  
-     //For future reference
-     /*
-     //There are saved translations, so make a map of them
-     const dateNodes = props.date.map(function(date)
-     {
-         //Return a new table entry for each saved translation
-         return (
-             <div key={translations._id} className="todaysDate">
-                 <h3 className="dateText">{date.date}</h3>
-                 <h3 className="kanjiText">{date.kanji}</h3>
-                 <h3 className="readingText">{date.reading}</h3>
-                 <h3 className="englishText">{date.english}</h3>
-                 <h3 className="translationText">{date.translation}</h3>
-             </div>
-         );
-     });
-     */
-     //Return the date
+     //Return the number
      if(!updating)
      {
          return (
-             <div className="numberOutput">
-                  <div className="searchedNumber">
+             <div className="translations">
+                  <div className="translation">
                         <h3 className="numberSearched">{props.number.number}</h3>
                         <h3 className="numberKanji">{props.number.kanji}</h3>
                         <h3 className="numberText">{props.number.reading}</h3>
@@ -81,8 +77,8 @@ const NumberOutput = function(props)
      else
      {
          return (
-            <div className="numberOutput">
-                <div className="searchedNumber">
+            <div className="translations">
+                <div className="translation">
                     <h3 className="numberSearched">{props.number.number}</h3>
                     <h3 className="numberKanji">{props.number.kanji}</h3>
                     <h3 className="numberText">{props.number.reading}</h3>
@@ -102,8 +98,8 @@ const NumberOutput = function(props)
                      <input type="hidden" name="english" value={props.number.english}/>
                      <input type="hidden" name="id" value={removedElem[0]._id}/>
                      <input type="hidden" name="_csrf" value={props.csrf}/>
+                     <input className="numberSubmit" type="submit" value="Update"/>
                      <button type="button" onClick={e => stopUpdating(props.csrf)}>Cancel</button>
-                     <input className="numberSubmit" type="submit" value="Save Number"/>
                  </form>
              </div>
          );
@@ -119,25 +115,23 @@ const NumberList = function(props)
         //Return a empty list
         return (
             <div className="numberList">
-                <h3 className="emptyNumberList">There are no saved numbers!</h3>
+                <h3 className="emptyList">There are no saved numbers!</h3>
             </div>
         );
     }
-
-    console.log(props.numbers);
 
     //There are saved translations, so make a map of them
     const numberNodes = props.numbers.map(function(numbers)
     {
         //Return a new table entry for each saved translation
         return (
-            <div key={numbers._id} className="translatedNumber">
-                <h3 className="numberSearched">{numbers.number}</h3>
-                <h3 className="numberKanji">{numbers.kanji}</h3>
-                <h3 className="numberText">{numbers.reading}</h3>
-                <h3 className="englishText">{numbers.english}</h3>
-                <button onClick={e => deleteMe(numbers._id)}>Remove</button>
-                <button onClick={e => loadData(false, props.numbers, numbers._id)}>Update</button>
+            <div key={numbers._id} className="savedTranslation">
+                <h4 className="numberSearched">{numbers.number}</h4>
+                <h4 className="numberKanji">{numbers.kanji}</h4>
+                <h4 className="numberText">{numbers.reading}</h4>
+                <h4 className="englishText">{numbers.english}</h4>
+                <button onClick={e => updateTranslation(false, props.numbers, numbers._id)}>Update</button>
+                <button onClick={e => deleteTranslation(numbers._id)}>Delete</button>
             </div>
         );
     });

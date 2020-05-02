@@ -7,29 +7,38 @@ const handleTextTranslation = (e) =>
     //Check if the user entered anything
     if(textbox.value.trim() == "")
     {
-        console.log("Please enter in text to be translated.");
-        //handleError("All fields are required bro.");
+        handleError("Please enter in text to be translated.");
         return false;
     }
-
+    
+    //save the translation
     saveTranslation("#translationForm");
 };
 
 const handleDate = (e) =>
 {
-        //Keep the page from refreshing
-        e.preventDefault();
+    //Keep the page from refreshing
+    e.preventDefault();
 
-        saveTranslation("#dateForm");
+    //save the translation
+    saveTranslation("#dateForm");
 }
 
 
 const handleNumber = (e) =>
 {
-        //Keep the page from refreshing
-        e.preventDefault();
+    //Keep the page from refreshing
+    e.preventDefault();
 
-        saveTranslation("#numberForm");
+    //If there was no number entered...
+    if($("#number").val() == "")
+    {
+        handleError("Please enter in a number to be translated.");
+        return false;
+    }
+
+    //save the translation
+    saveTranslation("#numberForm");
 }
 
 const saveTranslation = (form) =>
@@ -68,7 +77,7 @@ const saveTranslation = (form) =>
 
 //Function to delete a previously saved translation
 //I plan on writing this to be reusable all throught my translator
-const deleteMe = (id) =>
+const deleteTranslation = (id) =>
 {
     //Generate a new token
     sendAjax('GET', '/getToken', null, (result) =>
@@ -92,7 +101,7 @@ const deleteMe = (id) =>
 }
 
 //Function used for getting specifically what value we clicked on to update
-const loadData = (translation, list, id) =>
+const updateTranslation = (translation, list, id) =>
 {
     //Set the updating state to true
     updating = true;    

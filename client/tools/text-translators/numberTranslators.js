@@ -12,6 +12,10 @@ const setNumberJSON = (jsonDictionary) =>
 
     //Get today's current date
     today = new Date();
+    //Get the time-zone offset
+    const offset = today.getTimezoneOffset()/60;
+    //Set the offset
+    today.setHours(today.getHours() + offset);
 }
 
 const getDate = (e) => 
@@ -61,7 +65,31 @@ const getNumber = (e) =>
 {
     e.preventDefault();     
 
+  //get the number value
   const input = document.querySelector("#numberInput").value;
+
+  //Check if there's no input
+  if(input == "")
+  {
+    //There was, so return false
+    handleError("Please enter in a number to be translated.");
+    //Send the nothing to be displayed
+    loadNumber([]);
+    return false;
+  }
+  //Check if a letter was entered
+  else if (isNaN(input)) {
+    // Letters were entered
+    handleError("No text is allowed.");
+    //Send the nothing to be displayed
+    loadNumber([]);
+    return false;
+  }
+  else
+  {
+    //A valid number was entered
+    clearError();
+  }
 
   // Create the json object
   const data = {};
@@ -70,11 +98,7 @@ const getNumber = (e) =>
   const counter = { counter: 0 };
   // Check if the input's actually valid or not
 
-  if (Number.isNaN(input)) {
-    // Letters were entered
-    console.log("AAAA");
-    return false;
-  }
+
 
   // translate the string back into a number, and get it's length
   const numString = input.toString();
@@ -151,15 +175,19 @@ const getNumber = (e) =>
     counter.counter++;
   }
 
-  console.log(data);
-
-    sendAjax('GET', '/getToken', null, (result) =>
-    {        
-        ReactDOM.render(
-            <NumberOutput number = {data} csrf={result.csrfToken}/>, output
-        );
-    });
+  //Send the number to be displayed
+  loadNumber(data);
 };
+
+const loadNumber = (data) =>
+{
+  sendAjax('GET', '/getToken', null, (result) =>
+  {        
+      ReactDOM.render(
+          <NumberOutput number = {data} csrf={result.csrfToken}/>, output
+      );
+  });
+}
 
 // Search the numeric array and retrieve the kanji based off the number
 const appendNumbers = (num, array, response, isPower) => {
@@ -178,109 +206,3 @@ const appendNumbers = (num, array, response, isPower) => {
       response.english = `${number.english} ${response.english}`;
     }
   };
-
-
-  //const getTime = (e) =>
-  //{
-    /*
-
- //Takes the time inputs and finds if they are AM or PM
-          //Also turns the times from strings into numbers                  
-          getTime(time) {
-            const [strHour, strMin] = time.split(':');
-            hour = parseInt(strHour, 10);
-            min = parseInt(strMin, 10);
-            const midday = this.getMidday(hour);
-            if (hour == 0) hour = 12;
-            const scheduleTime = (hour * 100) + min;
-            if (hour >= 13) hour -= 12;
-
-            return [hour, min, midday, strHour, strMin, scheduleTime];
-          },
-        
-          //Used for checking if the time is past or before midday
-          getMidday(hour) {
-            if (hour >= 12) {
-              return 'PM';
-            }
-
-            return 'AM';
-          },
-
-
-    */
-
-  /*
-            //Add schedule does not post the schedule, but rather creates a entry in the schedule
-          addSchedule() {
-            // Check if the time fields have input
-            if (this.timeX && this.timeY && this.message) {
-                //They do, so grab them, and get their values
-              const timeA = this.getTime(this.timeX);
-              const timeB = this.getTime(this.timeY);
-        
-              //timeA is the starting time, and timeB is the ending
-              const startTime = timeA[5];
-              const endTime = timeB[5];
-              //Flag to see if the new schedule's time was valid
-              let valid = true;
-        
-              //Check to see if the schedule exists (For safety)
-              if (this.schedule) {
-                  //Check to see if the times actually are coherent; you can't have a schedule that starts at a later time than when it ends
-                if (startTime >= endTime) {
-                  this.status = 'Invalid time entererd!';
-                  valid = false;
-                }
-        
-                //Loop through the schedule and check the times; if one overlaps, it's invalid. Can't do 2 things at once.
-                for (let i = 0; i < this.schedule.length; i++) {
-                  if (this.schedule[i].startTime <= startTime && this.schedule[i].endTime >= endTime) {
-                    this.status = 'That time slot is already taken!';
-                    valid = false;
-                  } else {
-                    this.status = '';
-                  }
-                }
-        
-                //There's no invalid entries; create a new entry
-                if (valid) {
-                  const entry = {
-                    startTime,
-                    endTime,
-                    time: `${timeA[0]}:${timeA[4]} ${timeA[2]} - ${timeB[0]}:${timeB[4]} ${timeB[2]}`,
-                    entry: this.message,
-                  };
-        
-                  //Push it onto the schedule, and sort it
-                  this.schedule.push(entry);
-                  this.schedule.sort((a, b) => a.startTime - b.startTime);
-                }
-              }
-            }
-          },
-        
-          //Get the user's previous schedule
-          getSchedule() {
-            const formData = `/getSchedule?username=${this.username}`;
-            this.sendAjax(formData, 0, false);
-            this.status = "Finding your Schedule..."
-          },
-        
-          //Post your current schedule to the server and save it.
-          postSchedule() {
-            if(this.schedule.length > 0)
-            {
-              const jsonSchedule = JSON.stringify(this.schedule);
-            const formData = `username=${this.username}&schedule=${jsonSchedule}`;
-            this.sendPost('/addSchedule', formData, 0, false);
-            this.status = "Saving your Schedule..."
-            }
-            else
-            {
-              this.status = "Please fill out your schedule before posting it!"
-            }
-          },
-        
-         
-  */
