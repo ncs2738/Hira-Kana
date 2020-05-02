@@ -100,7 +100,7 @@ const translationsPage = (req, res) => {
     }
 
     // The app loaded right; reload the app again, and get a new token
-    return res.render('translations', { csrfToken: req.csrfToken(), translations: docs, 'username': req.session.account.username});
+    return res.render('translations', { csrfToken: req.csrfToken(), translations: docs, username: req.session.account.username });
   });
 };
 
