@@ -92,7 +92,6 @@ const getTextTranslations = (request, response) => {
 // Load the translation page
 const translationsPage = (req, res) => {
   // Grab the user's translations
-
   TextTranslation.TextTranslationModel.findByOwner(req.session.account._id, (err, docs) => {
     // A error occured
     if (err) {
@@ -101,7 +100,7 @@ const translationsPage = (req, res) => {
     }
 
     // The app loaded right; reload the app again, and get a new token
-    return res.render('translations', { csrfToken: req.csrfToken(), translations: docs });
+    return res.render('translations', { csrfToken: req.csrfToken(), translations: docs, 'username': req.session.account.username});
   });
 };
 

@@ -245,3 +245,9 @@ label, #errorMessage
 {
     font-size: 24px;
 }
+
+.rightNav
+{
+    float:right;
+    margin-right: 1vw;
+}

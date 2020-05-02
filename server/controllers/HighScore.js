@@ -78,7 +78,7 @@ const getHighScores = (request, response) => {
 
 // Load the game page
 const gamePage = (req, res) => {
-  res.render('game');
+  res.render('game', {'username': req.session.account.username});
 };
 
 // Export the functions

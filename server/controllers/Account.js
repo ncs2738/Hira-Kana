@@ -155,7 +155,7 @@ const updatePassword = (request, response) => {
 
 // Load the password update page
 const passwordPage = (req, res) => {
-  res.render('updatePassword');
+  res.render('updatePassword', {'username': req.session.account.username});
 };
 
 // Used for generating CSRF tokens
