@@ -39,22 +39,21 @@ var saveTranslation = function saveTranslation(form) {
   if (!updating) {
     //Send the AJAX call with the translation forms form's data
     sendAjax('POST', $(form).attr("action"), $(form).serialize(), function () {
-      resetStates();
       loadFromServer();
     });
   } //we are updating another translation
   else {
       //Send the AJAX call with the translation forms form's data
       sendAjax('POST', "/update" + currentWindow, $(form).serialize(), function () {
-        //We finished updating, so reset the states
-        resetStates(); //Load the translations from the server
-
+        //Load the translations from the server
         loadFromServer();
       });
     } //Refresh the form
 
 
   sendAjax('GET', '/getToken', null, function (result) {
+    //We finished updating, so reset the states
+    resetStates();
     createWindow(result.csrfToken);
   });
   return false;
@@ -776,6 +775,7 @@ var createWindow = function createWindow(csrf) {
           loadFromServer();
         }
 
+        textbox = document.querySelector("#translationText");
         break;
       }
 

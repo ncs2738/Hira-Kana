@@ -114,6 +114,8 @@ const createWindow = (csrf, updateList = [], updateOutput = []) =>
             loadFromServer();
             }
 
+            textbox  = document.querySelector("#translationText");
+
             break;
         }
     }

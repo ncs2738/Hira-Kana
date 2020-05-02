@@ -49,7 +49,6 @@ const saveTranslation = (form) =>
         //Send the AJAX call with the translation forms form's data
         sendAjax('POST', $(form).attr("action"), $(form).serialize(), function()
         {
-            resetStates();
             loadFromServer();
         });
     }
@@ -59,8 +58,6 @@ const saveTranslation = (form) =>
         //Send the AJAX call with the translation forms form's data
         sendAjax('POST', "/update" + currentWindow, $(form).serialize(), function()
         {
-            //We finished updating, so reset the states
-            resetStates();
             //Load the translations from the server
             loadFromServer();
         });
@@ -69,6 +66,8 @@ const saveTranslation = (form) =>
     //Refresh the form
     sendAjax('GET', '/getToken', null, (result) =>
     {
+        //We finished updating, so reset the states
+        resetStates();
         createWindow(result.csrfToken)
     });
 
